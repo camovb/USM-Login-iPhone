@@ -33,9 +33,9 @@
 		F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F14A206913D52F93008EE7A4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F14A206B13D52FA3008EE7A4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		F1526BCC13D54F610013C88D /* AutoLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15AE70013D4FD5D0032F61E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		F15AE70213D4FD650032F61E /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		F1E25BB213A86B43007979C4 /* AutoLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AutoLogin.app; path = "/Users/camonk/Projects/USM-Login-iPhone/build/Release-iphoneos/AutoLogin.app"; sourceTree = "<absolute>"; };
 		F1E25BB613A86B43007979C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F1E25BB813A86B43007979C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F1E25BBA13A86B43007979C4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -94,6 +94,7 @@
 		F1E25BB313A86B43007979C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				F1526BCC13D54F610013C88D /* AutoLogin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,7 +152,7 @@
 			);
 			name = AutoLogin;
 			productName = AutoLogin;
-			productReference = F1E25BB213A86B43007979C4 /* AutoLogin.app */;
+			productReference = F1526BCC13D54F610013C88D /* AutoLogin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
