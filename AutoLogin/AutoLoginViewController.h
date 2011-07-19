@@ -11,17 +11,18 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AutoLoginViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate> {
-    IBOutlet UITextField *user;
-    IBOutlet UITextField *pass;
-    IBOutlet UISwitch *save;
-    IBOutlet UIActivityIndicatorView *loading;
-    
+    IBOutlet UITextField *textFieldUser;
+    IBOutlet UITextField *textFieldPass;
+    IBOutlet UISwitch *switchRemember;
+    IBOutlet UIActivityIndicatorView *activityIndicator;
     IBOutlet UINavigationBar *navBar;
-    IBOutlet UIWebView *web;
+    
+    //se usa un webView para aceptar las alertas que envian las páginas
+    IBOutlet UIWebView *webHidden;
 }
 
--(IBAction)buttonLoginPressed:(id)sender;
--(IBAction)buttonLogoutPressed:(id)sender;
--(IBAction)switchSaveChangeValue:(id)sender;
--(IBAction)hideKeyboard:(id)sender;
+- (IBAction)buttonLoginPressed:(id)sender;
+- (IBAction)buttonLogoutPressed:(id)sender;
+- (IBAction)switchSaveChangeValue:(id)sender;
+- (IBAction)hideKeyboard:(id)sender;
 @end

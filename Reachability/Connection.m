@@ -14,7 +14,8 @@
 
 +(BOOL)checkWithAlert:(BOOL)show
 {
-    
+#warning Testear en la U
+    //Falta probar si funciona.... no he testeado con esto en la U
 	if ([[Reachability reachabilityWithHostName:@"https://1.1.1.1"] currentReachabilityStatus] == NotReachable)
 	{
         if (show)

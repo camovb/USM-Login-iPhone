@@ -29,12 +29,14 @@
 }
 @end
 
+
+
 @implementation AutoLoginViewController
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    //fondo al navigation
+    //fondo al navigation (43 para que se vea la linea)
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 43)];
     [bgView setBackgroundColor:[UIColor colorWithRed:0 green:200.0/255.0 blue:245.0/255.0 alpha:0.5]];
     [navBar insertSubview:bgView atIndex:0];
@@ -45,11 +47,11 @@
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"pass"];
     if (username) 
     {
-        [user setText:username];
+        [textFieldUser setText:username];
     }
     if (password) 
     {
-        [pass setText:password];
+        [textFieldPass setText:password];
     }
     
 }
@@ -57,17 +59,17 @@
 //esconde los teclados
 -(IBAction)hideKeyboard:(id)sender
 {
-    [user resignFirstResponder];
-    [pass resignFirstResponder];
+    [textFieldUser resignFirstResponder];
+    [textFieldPass resignFirstResponder];
 }
 
 //si cambia el switch, elimna lo guardado o guarda
 -(IBAction)switchSaveChangeValue:(id)sender
 {
-    if ([save isOn]) 
+    if ([switchRemember isOn]) 
     {
-        [[NSUserDefaults standardUserDefaults] setObject:user.text forKey:@"user"];
-        [[NSUserDefaults standardUserDefaults] setObject:pass.text forKey:@"pass"];
+        [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"user"];
+        [[NSUserDefaults standardUserDefaults] setObject:textFieldPass.text forKey:@"pass"];
     }
     else
     {
@@ -85,12 +87,12 @@
     }
     
     //valida los campos...
-    if (!user.text || [user.text isEqualToString:@""]) 
+    if (!textFieldUser.text || [textFieldUser.text isEqualToString:@""]) 
     {
         [UIAlertView showAdviceWithMessage:@"Debe escribir su correo institucional"];
         return;
     }
-    else if(!pass.text || [pass.text isEqualToString:@""])
+    else if(!textFieldPass.text || [textFieldPass.text isEqualToString:@""])
     {
         [UIAlertView showAdviceWithMessage:@"Debe escribir su contraseña"];
         return;
@@ -100,7 +102,7 @@
     [self switchSaveChangeValue:nil];
     
     //prepara la consulta
-    NSString *post= [NSString stringWithFormat:@"username=%@&password=%@&buttonClicked=4",user.text,pass.text];
+    NSString *post= [NSString stringWithFormat:@"username=%@&password=%@&buttonClicked=4",textFieldUser.text,textFieldPass.text];
     NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     
     NSURL *url = [NSURL URLWithString:@"https://1.1.1.1/login.html"];
@@ -110,21 +112,21 @@
     [request setHTTPMethod:@"POST"];
     
     //carga la consulta en un webView
-    [web loadRequest:request];
+    [webHidden loadRequest:request];
     
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     //emiza a cargar, muestra el actitivy
-    [loading setHidden:NO];
+    [activityIndicator setHidden:NO];
 }
 
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    //oculta el activiti
-    [loading setHidden:YES];
+    //oculta el activity
+    [activityIndicator setHidden:YES];
     NSString *urlString = [NSString stringWithFormat:@"%@",[webView.request URL]];
 
     
@@ -160,14 +162,14 @@
     [request setHTTPMethod:@"POST"];
     
     
-    [web loadRequest:request];
+    [webHidden loadRequest:request];
 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([textField tag]==777) 
     {
-        [pass becomeFirstResponder];
+        [textFieldPass becomeFirstResponder];
     }
     else if([textField tag]==888)
     {

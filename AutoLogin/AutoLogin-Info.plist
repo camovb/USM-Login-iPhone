@@ -18,7 +18,7 @@
 		<string>icon@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>codegears.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>BRBT99F7RH.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
