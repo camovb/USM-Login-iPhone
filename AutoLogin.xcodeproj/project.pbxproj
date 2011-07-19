@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F14A205513D51CFA008EE7A4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = F14A205413D51CFA008EE7A4 /* Reachability.m */; };
+		F14A205913D51D16008EE7A4 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = F14A205813D51D16008EE7A4 /* Connection.m */; };
+		F14A205B13D51E13008EE7A4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */; };
+		F14A206A13D52F93008EE7A4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F14A206913D52F93008EE7A4 /* Default.png */; };
+		F14A206C13D52FA3008EE7A4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F14A206B13D52FA3008EE7A4 /* Default@2x.png */; };
+		F15AE70113D4FD5D0032F61E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE70013D4FD5D0032F61E /* icon.png */; };
+		F15AE70313D4FD650032F61E /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE70213D4FD650032F61E /* icon@2x.png */; };
+		F1E25BB713A86B43007979C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BB613A86B43007979C4 /* UIKit.framework */; };
+		F1E25BB913A86B43007979C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BB813A86B43007979C4 /* Foundation.framework */; };
+		F1E25BBB13A86B43007979C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BBA13A86B43007979C4 /* CoreGraphics.framework */; };
+		F1E25BC113A86B43007979C4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F1E25BBF13A86B43007979C4 /* InfoPlist.strings */; };
+		F1E25BC413A86B43007979C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F1E25BC313A86B43007979C4 /* main.m */; };
+		F1E25BC713A86B43007979C4 /* AutoLoginAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F1E25BC613A86B43007979C4 /* AutoLoginAppDelegate.m */; };
+		F1E25BCA13A86B43007979C4 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1E25BC813A86B43007979C4 /* MainWindow.xib */; };
+		F1E25BCD13A86B43007979C4 /* AutoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1E25BCC13A86B43007979C4 /* AutoLoginViewController.m */; };
+		F1E25BD013A86B43007979C4 /* AutoLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1E25BCE13A86B43007979C4 /* AutoLoginViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F14A205313D51CFA008EE7A4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		F14A205413D51CFA008EE7A4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		F14A205713D51D16008EE7A4 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		F14A205813D51D16008EE7A4 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
+		F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F14A206913D52F93008EE7A4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		F14A206B13D52FA3008EE7A4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		F15AE70013D4FD5D0032F61E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		F15AE70213D4FD650032F61E /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		F1E25BB213A86B43007979C4 /* AutoLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E25BB613A86B43007979C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F1E25BB813A86B43007979C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F1E25BBA13A86B43007979C4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F1E25BBE13A86B43007979C4 /* AutoLogin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AutoLogin-Info.plist"; sourceTree = "<group>"; };
+		F1E25BC013A86B43007979C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F1E25BC213A86B43007979C4 /* AutoLogin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AutoLogin-Prefix.pch"; sourceTree = "<group>"; };
+		F1E25BC313A86B43007979C4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F1E25BC513A86B43007979C4 /* AutoLoginAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoLoginAppDelegate.h; sourceTree = "<group>"; };
+		F1E25BC613A86B43007979C4 /* AutoLoginAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoLoginAppDelegate.m; sourceTree = "<group>"; };
+		F1E25BC913A86B43007979C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		F1E25BCB13A86B43007979C4 /* AutoLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AutoLoginViewController.h; sourceTree = "<group>"; };
+		F1E25BCC13A86B43007979C4 /* AutoLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoLoginViewController.m; sourceTree = "<group>"; };
+		F1E25BCF13A86B43007979C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AutoLoginViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1E25BAF13A86B43007979C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F14A205B13D51E13008EE7A4 /* SystemConfiguration.framework in Frameworks */,
+				F1E25BB713A86B43007979C4 /* UIKit.framework in Frameworks */,
+				F1E25BB913A86B43007979C4 /* Foundation.framework in Frameworks */,
+				F1E25BBB13A86B43007979C4 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F14A205213D51CFA008EE7A4 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				F14A205713D51D16008EE7A4 /* Connection.h */,
+				F14A205813D51D16008EE7A4 /* Connection.m */,
+				F14A205313D51CFA008EE7A4 /* Reachability.h */,
+				F14A205413D51CFA008EE7A4 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+		F1E25BA713A86B43007979C4 = {
+			isa = PBXGroup;
+			children = (
+				F14A206B13D52FA3008EE7A4 /* Default@2x.png */,
+				F14A206913D52F93008EE7A4 /* Default.png */,
+				F15AE70213D4FD650032F61E /* icon@2x.png */,
+				F15AE70013D4FD5D0032F61E /* icon.png */,
+				F14A205213D51CFA008EE7A4 /* Reachability */,
+				F1E25BBC13A86B43007979C4 /* AutoLogin */,
+				F1E25BB513A86B43007979C4 /* Frameworks */,
+				F1E25BB313A86B43007979C4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F1E25BB313A86B43007979C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1E25BB213A86B43007979C4 /* AutoLogin.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1E25BB513A86B43007979C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */,
+				F1E25BB613A86B43007979C4 /* UIKit.framework */,
+				F1E25BB813A86B43007979C4 /* Foundation.framework */,
+				F1E25BBA13A86B43007979C4 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F1E25BBC13A86B43007979C4 /* AutoLogin */ = {
+			isa = PBXGroup;
+			children = (
+				F1E25BC513A86B43007979C4 /* AutoLoginAppDelegate.h */,
+				F1E25BC613A86B43007979C4 /* AutoLoginAppDelegate.m */,
+				F1E25BC813A86B43007979C4 /* MainWindow.xib */,
+				F1E25BCB13A86B43007979C4 /* AutoLoginViewController.h */,
+				F1E25BCC13A86B43007979C4 /* AutoLoginViewController.m */,
+				F1E25BCE13A86B43007979C4 /* AutoLoginViewController.xib */,
+				F1E25BBD13A86B43007979C4 /* Supporting Files */,
+			);
+			path = AutoLogin;
+			sourceTree = "<group>";
+		};
+		F1E25BBD13A86B43007979C4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F1E25BBE13A86B43007979C4 /* AutoLogin-Info.plist */,
+				F1E25BBF13A86B43007979C4 /* InfoPlist.strings */,
+				F1E25BC213A86B43007979C4 /* AutoLogin-Prefix.pch */,
+				F1E25BC313A86B43007979C4 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1E25BB113A86B43007979C4 /* AutoLogin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1E25BE913A86B44007979C4 /* Build configuration list for PBXNativeTarget "AutoLogin" */;
+			buildPhases = (
+				F1E25BAE13A86B43007979C4 /* Sources */,
+				F1E25BAF13A86B43007979C4 /* Frameworks */,
+				F1E25BB013A86B43007979C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoLogin;
+			productName = AutoLogin;
+			productReference = F1E25BB213A86B43007979C4 /* AutoLogin.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1E25BA913A86B43007979C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Universidad Tecnica Federico Santa Mari­a";
+			};
+			buildConfigurationList = F1E25BAC13A86B43007979C4 /* Build configuration list for PBXProject "AutoLogin" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F1E25BA713A86B43007979C4;
+			productRefGroup = F1E25BB313A86B43007979C4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1E25BB113A86B43007979C4 /* AutoLogin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1E25BB013A86B43007979C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E25BC113A86B43007979C4 /* InfoPlist.strings in Resources */,
+				F1E25BCA13A86B43007979C4 /* MainWindow.xib in Resources */,
+				F1E25BD013A86B43007979C4 /* AutoLoginViewController.xib in Resources */,
+				F15AE70113D4FD5D0032F61E /* icon.png in Resources */,
+				F15AE70313D4FD650032F61E /* icon@2x.png in Resources */,
+				F14A206A13D52F93008EE7A4 /* Default.png in Resources */,
+				F14A206C13D52FA3008EE7A4 /* Default@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1E25BAE13A86B43007979C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E25BC413A86B43007979C4 /* main.m in Sources */,
+				F1E25BC713A86B43007979C4 /* AutoLoginAppDelegate.m in Sources */,
+				F1E25BCD13A86B43007979C4 /* AutoLoginViewController.m in Sources */,
+				F14A205513D51CFA008EE7A4 /* Reachability.m in Sources */,
+				F14A205913D51D16008EE7A4 /* Connection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F1E25BBF13A86B43007979C4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1E25BC013A86B43007979C4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F1E25BC813A86B43007979C4 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1E25BC913A86B43007979C4 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		F1E25BCE13A86B43007979C4 /* AutoLoginViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1E25BCF13A86B43007979C4 /* en */,
+			);
+			name = AutoLoginViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F1E25BE713A86B44007979C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F1E25BE813A86B44007979C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		F1E25BEA13A86B44007979C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AutoLogin/AutoLogin-Prefix.pch";
+				INFOPLIST_FILE = "AutoLogin/AutoLogin-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F1E25BEB13A86B44007979C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AutoLogin/AutoLogin-Prefix.pch";
+				INFOPLIST_FILE = "AutoLogin/AutoLogin-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1E25BAC13A86B43007979C4 /* Build configuration list for PBXProject "AutoLogin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E25BE713A86B44007979C4 /* Debug */,
+				F1E25BE813A86B44007979C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1E25BE913A86B44007979C4 /* Build configuration list for PBXNativeTarget "AutoLogin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E25BEA13A86B44007979C4 /* Debug */,
+				F1E25BEB13A86B44007979C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1E25BA913A86B43007979C4 /* Project object */;
+}
