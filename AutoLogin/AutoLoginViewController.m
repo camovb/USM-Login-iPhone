@@ -54,6 +54,32 @@
         [textFieldPass setText:password];
     }
     
+    NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
+    
+    if (autoConnect && [autoConnect boolValue]) 
+    {
+        [switchAutoConnect setOn:YES];
+    }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(applicationDidBecomeActive:) 
+                                                 name:UIApplicationDidBecomeActiveNotification 
+                                               object:nil];
+    
+}
+
+//si tiene guardado que intente conectar al iniciar...
+-(void)applicationDidBecomeActive:(id)sender
+{
+    NSLog(@"Active");
+    
+    NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
+    
+    if (autoConnect && [autoConnect boolValue]) 
+    {
+        [self buttonLoginPressed:nil];
+    }
 }
 
 //esconde los teclados
@@ -76,15 +102,37 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"pass"];
     }
+    
+    //si la acci—n la envia el boton
+    if (sender) 
+    {
+        if ([switchRemember isOn]) 
+        {
+            [switchAutoConnect setEnabled:YES];
+        }
+        else
+        {
+            [switchAutoConnect setEnabled:NO];
+            [switchAutoConnect setOn:NO animated:YES];
+        }
+    }
+}
+- (IBAction)switchAutoConnectChangeValue:(id)sender
+{
+    if ([switchAutoConnect isOn]) 
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"auto"];
+        [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"user"];
+        [[NSUserDefaults standardUserDefaults] setObject:textFieldPass.text forKey:@"pass"];
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"auto"];
+    }
 }
 
 -(IBAction)buttonLoginPressed:(id)sender
 {
-    
-    if (![Connection checkWithAlert:YES]) 
-    {
-        return;
-    }
     
     //valida los campos...
     if (!textFieldUser.text || [textFieldUser.text isEqualToString:@""]) 
@@ -113,41 +161,12 @@
     
     //carga la consulta en un webView
     [webHidden loadRequest:request];
+    [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(webViewTimeOut:) userInfo:nil repeats:NO];
+    timeOut = NO;
     
 }
-
--(void)webViewDidStartLoad:(UIWebView *)webView
-{
-    //emiza a cargar, muestra el actitivy
-    [activityIndicator setHidden:NO];
-}
-
-
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    //oculta el activity
-    [activityIndicator setHidden:YES];
-    NSString *urlString = [NSString stringWithFormat:@"%@",[webView.request URL]];
-
-    
-    //si llega a usm, entonces perfect
-    if ([urlString isEqualToString:@"http://www.usm.cl/"]) 
-    {
-        [UIAlertView showAdviceWithMessage:@"Se ha autentificado correctamente"];
-    }
-    else if([urlString isEqualToString:@"https://1.1.1.1/logout.html"])
-    {
-        [UIAlertView showAdviceWithMessage:@"Se ha desautentificado correctamente"];
-    }
-}
-
-
 -(IBAction)buttonLogoutPressed:(id)sender
 {
-    if (![Connection checkWithAlert:YES]) 
-    {
-        return;
-    }
     
     [self switchSaveChangeValue:nil];
     
@@ -161,10 +180,79 @@
     [request setHTTPBody:postData];
     [request setHTTPMethod:@"POST"];
     
-    
     [webHidden loadRequest:request];
-
+    [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(webViewTimeOut:) userInfo:nil repeats:NO];
+    timeOut = NO;
+    
 }
+
+
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    //emiza a cargar, muestra el actitivy
+    [activityIndicator setHidden:NO];
+}
+
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //oculta el activity
+    [activityIndicator setHidden:YES];
+    NSString *urlString = [NSString stringWithFormat:@"%@",[webView.request URL]];
+    
+
+    if([urlString isEqualToString:@"https://1.1.1.1/logout.html"])
+    {
+        [UIAlertView showAdviceWithMessage:@"Se ha desautentificado correctamente"];
+    }
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    
+    NSLog(@"SHOULD START: %@",[request URL]);
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@",[request URL]];
+    
+    //si intenta cargar usm, entonces perfect
+    if ([urlString isEqualToString:@"http://www.usm.cl/"]) 
+    {
+        [UIAlertView showAdviceWithMessage:@"Se ha autentificado correctamente"];
+        [activityIndicator setHidden:YES];
+        timeOut = YES;
+        return NO;
+    }
+    
+    
+    return YES;
+}
+
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [activityIndicator setHidden:YES];
+    
+    if (!timeOut) 
+    {
+        [UIAlertView showAdviceWithMessage:@"Asegurese de estar conectado a una red WIFI"];
+
+    }
+   
+}
+-(void)webViewTimeOut:(id)sender
+{
+    if ([webHidden isLoading]) {
+        [activityIndicator setHidden:YES];
+        [webHidden stopLoading];
+        timeOut = YES;
+        [UIAlertView showAdviceWithMessage:@"Ha pasado el tiempo m‡ximo de espera..."];
+
+    }
+    
+}
+
+
+//el primero avancza al siguiente campo, y el otro envia..
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if ([textField tag]==777) 
