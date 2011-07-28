@@ -21,7 +21,8 @@
     //se usa un webView para aceptar las alertas que envian las páginas
     IBOutlet UIWebView *webHidden;
     
-    BOOL timeOut;
+    NSTimer *timeOut;
+    
 }
 
 - (IBAction)buttonLoginPressed:(id)sender;

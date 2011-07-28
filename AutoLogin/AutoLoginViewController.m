@@ -137,12 +137,12 @@
     //valida los campos...
     if (!textFieldUser.text || [textFieldUser.text isEqualToString:@""]) 
     {
-        [UIAlertView showAdviceWithMessage:@"Debe escribir su correo institucional"];
+        [UIAlertView showAdviceWithMessage:@"Debes escribir tu correo institucional"];
         return;
     }
     else if(!textFieldPass.text || [textFieldPass.text isEqualToString:@""])
     {
-        [UIAlertView showAdviceWithMessage:@"Debe escribir su contrase√±a"];
+        [UIAlertView showAdviceWithMessage:@"Debes escribir tu contraseña"];
         return;
     }
     
@@ -161,8 +161,7 @@
     
     //carga la consulta en un webView
     [webHidden loadRequest:request];
-    [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(webViewTimeOut:) userInfo:nil repeats:NO];
-    timeOut = NO;
+    timeOut = [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
     
 }
 -(IBAction)buttonLogoutPressed:(id)sender
@@ -181,8 +180,8 @@
     [request setHTTPMethod:@"POST"];
     
     [webHidden loadRequest:request];
-    [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(webViewTimeOut:) userInfo:nil repeats:NO];
-    timeOut = NO;
+    timeOut = [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
+
     
 }
 
@@ -198,13 +197,16 @@
 {
     //oculta el activity
     [activityIndicator setHidden:YES];
-    NSString *urlString = [NSString stringWithFormat:@"%@",[webView.request URL]];
-    
+    if (timeOut && [timeOut isValid]) [timeOut invalidate];
 
+    NSString *urlString = [NSString stringWithFormat:@"%@",[webView.request URL]];
+
+    
     if([urlString isEqualToString:@"https://1.1.1.1/logout.html"])
     {
-        [UIAlertView showAdviceWithMessage:@"Se ha desautentificado correctamente"];
+        [UIAlertView showAdviceWithMessage:@"Te has desconectado correctamente"];
     }
+
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -214,12 +216,39 @@
     
     NSString *urlString = [NSString stringWithFormat:@"%@",[request URL]];
     
+    
     //si intenta cargar usm, entonces perfect
-    if ([urlString isEqualToString:@"http://www.usm.cl/"]) 
+    if ([urlString isEqualToString:@"http://www.usm.cl/"] || [urlString hasSuffix:@"statusCode=1"]) 
     {
-        [UIAlertView showAdviceWithMessage:@"Se ha autentificado correctamente"];
+        [UIAlertView showAdviceWithMessage:@"Te has conectado correctamente"];
         [activityIndicator setHidden:YES];
-        timeOut = YES;
+        if (timeOut && [timeOut isValid]) [timeOut invalidate];
+        return NO;
+    }
+    else if ([urlString hasSuffix:@"statusCode=3"])
+    {
+        [UIAlertView showAdviceWithMessage:@"Tu usuario ya está siendo utilizando por otro dispositivo"];
+        [activityIndicator setHidden:YES];
+        if (timeOut && [timeOut isValid]) [timeOut invalidate];
+
+        return NO;
+        
+    }
+    else if ([urlString hasSuffix:@"statusCode=4"])
+    {
+        [UIAlertView showAdviceWithMessage:@"Nombre de usuario y contraseña incorrectos"];
+        [activityIndicator setHidden:YES];
+        if (timeOut && [timeOut isValid]) [timeOut invalidate];
+
+        return NO;
+        
+    }
+    else if([urlString hasSuffix:@"statusCode=5"])
+    {
+        [UIAlertView showAdviceWithMessage:@"Nombre de usuario o contraseña incorrectos"];
+        [activityIndicator setHidden:YES];
+        if (timeOut && [timeOut isValid]) [timeOut invalidate];
+
         return NO;
     }
     
@@ -232,20 +261,22 @@
 {
     [activityIndicator setHidden:YES];
     
-    if (!timeOut) 
+    NSLog(@"FAIL!");
+    
+    if (timeOut && [timeOut isValid]) 
     {
-        [UIAlertView showAdviceWithMessage:@"Asegurese de estar conectado a una red WIFI"];
+        [timeOut invalidate];
+        [UIAlertView showAdviceWithMessage:@"Asegurate de estar conectado a una red WIFI de la universidad"];
 
     }
-   
+    
 }
--(void)webViewTimeOut:(id)sender
+-(void)webViewDidTimeOut:(id)sender
 {
-    if ([webHidden isLoading]) {
-        [activityIndicator setHidden:YES];
+    if ([webHidden isLoading]) 
+    {
         [webHidden stopLoading];
-        timeOut = YES;
-        [UIAlertView showAdviceWithMessage:@"Ha pasado el tiempo máximo de espera..."];
+        [UIAlertView showAdviceWithMessage:@"Paso el tiempo máximo de espera"];
 
     }
     
