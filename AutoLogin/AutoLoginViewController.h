@@ -21,7 +21,7 @@
     //se usa un webView para aceptar las alertas que envian las páginas
     IBOutlet UIWebView *webHidden;
     
-    NSTimer *timeOut;
+    BOOL timeOut;
     
 }
 

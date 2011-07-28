@@ -161,8 +161,8 @@
     
     //carga la consulta en un webView
     [webHidden loadRequest:request];
-    timeOut = [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
-    
+    [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
+    timeOut = NO;
 }
 -(IBAction)buttonLogoutPressed:(id)sender
 {
@@ -180,9 +180,8 @@
     [request setHTTPMethod:@"POST"];
     
     [webHidden loadRequest:request];
-    timeOut = [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
-
-    
+    [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
+    timeOut = NO;
 }
 
 
@@ -197,7 +196,6 @@
 {
     //oculta el activity
     [activityIndicator setHidden:YES];
-    if (timeOut && [timeOut isValid]) [timeOut invalidate];
 
     NSString *urlString = [NSString stringWithFormat:@"%@",[webView.request URL]];
 
@@ -222,15 +220,12 @@
     {
         [UIAlertView showAdviceWithMessage:@"Te has conectado correctamente"];
         [activityIndicator setHidden:YES];
-        if (timeOut && [timeOut isValid]) [timeOut invalidate];
         return NO;
     }
     else if ([urlString hasSuffix:@"statusCode=3"])
     {
         [UIAlertView showAdviceWithMessage:@"Tu usuario ya est‡ siendo utilizando por otro dispositivo"];
         [activityIndicator setHidden:YES];
-        if (timeOut && [timeOut isValid]) [timeOut invalidate];
-
         return NO;
         
     }
@@ -238,8 +233,6 @@
     {
         [UIAlertView showAdviceWithMessage:@"Nombre de usuario y contrase–a incorrectos"];
         [activityIndicator setHidden:YES];
-        if (timeOut && [timeOut isValid]) [timeOut invalidate];
-
         return NO;
         
     }
@@ -247,8 +240,6 @@
     {
         [UIAlertView showAdviceWithMessage:@"Nombre de usuario o contrase–a incorrectos"];
         [activityIndicator setHidden:YES];
-        if (timeOut && [timeOut isValid]) [timeOut invalidate];
-
         return NO;
     }
     
@@ -263,21 +254,20 @@
     
     NSLog(@"FAIL!");
     
-    if (timeOut && [timeOut isValid]) 
+    if (!timeOut) 
     {
-        [timeOut invalidate];
         [UIAlertView showAdviceWithMessage:@"Asegurate de estar conectado a una red WIFI de la universidad"];
-
+        timeOut = YES;
     }
     
 }
 -(void)webViewDidTimeOut:(id)sender
 {
-    if ([webHidden isLoading]) 
+    if ([webHidden isLoading] && !timeOut) 
     {
         [webHidden stopLoading];
         [UIAlertView showAdviceWithMessage:@"Paso el tiempo m‡ximo de espera"];
-
+        timeOut = YES;
     }
     
 }
