@@ -2,8 +2,8 @@
 //  AutoLoginViewController.m
 //  AutoLogin
 //
-//  Created by Camilo Andrés Vera Bezmalinovic on 6/15/11.
-//  Copyright 2011 Universidad Tecnica Federico Santa Mari­a. All rights reserved.
+//  Created by Camilo Andr√©s Vera Bezmalinovic on 6/15/11.
+//  Copyright 2011 Universidad Tecnica Federico Santa Mari¬≠a. All rights reserved.
 //
 
 #import "AutoLoginViewController.h"
@@ -17,18 +17,6 @@
     return YES;
 }
 @end
-
-//para evitar paja de escribir
-@interface UIAlertView(Advice)
-+ (void) showAdviceWithMessage:(NSString*)message;
-@end
-@implementation UIAlertView(Advice)
-+ (void) showAdviceWithMessage:(NSString*)message
-{
-    [[[[UIAlertView alloc] initWithTitle:@"Aviso" message:message delegate:nil cancelButtonTitle:@"Aceptar" otherButtonTitles:nil] autorelease] show];
-}
-@end
-
 
 
 @implementation AutoLoginViewController
@@ -46,20 +34,14 @@
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"pass"];
     if (username) 
-    {
         [textFieldUser setText:username];
-    }
     if (password) 
-    {
         [textFieldPass setText:password];
-    }
     
     NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
     
     if (autoConnect && [autoConnect boolValue]) 
-    {
         [switchAutoConnect setOn:YES];
-    }
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -67,6 +49,9 @@
                                                  name:UIApplicationDidBecomeActiveNotification 
                                                object:nil];
     
+    //indica el origen en Y de la primera notificación    
+    for (int i=0; i<8; i++) 
+        notificationSlot[i]=NO;
 }
 
 //si tiene guardado que intente conectar al iniciar...
@@ -77,9 +62,7 @@
     NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
     
     if (autoConnect && [autoConnect boolValue]) 
-    {
         [self buttonLoginPressed:nil];
-    }
 }
 
 //esconde los teclados
@@ -103,7 +86,7 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"pass"];
     }
     
-    //si la acci�n la envia el boton
+    //si la acción la envia el boton
     if (sender) 
     {
         if ([switchRemember isOn]) 
@@ -134,15 +117,17 @@
 -(IBAction)buttonLoginPressed:(id)sender
 {
     
+    [self hideKeyboard:nil];
+    
     //valida los campos...
     if (!textFieldUser.text || [textFieldUser.text isEqualToString:@""]) 
     {
-        [UIAlertView showAdviceWithMessage:@"Debes escribir tu correo institucional"];
+        [self showNotificationWithMessage:@"Debes escribir tu correo institucional"];
         return;
     }
     else if(!textFieldPass.text || [textFieldPass.text isEqualToString:@""])
     {
-        [UIAlertView showAdviceWithMessage:@"Debes escribir tu contrase�a"];
+        [self showNotificationWithMessage:@"Debes escribir tu contraseña"];
         return;
     }
     
@@ -166,6 +151,7 @@
 }
 -(IBAction)buttonLogoutPressed:(id)sender
 {
+    [self hideKeyboard:nil];
     
     [self switchSaveChangeValue:nil];
     
@@ -183,8 +169,81 @@
     [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
     timeOut = NO;
 }
+- (IBAction)infoButtonDidPress:(id)sender
+{
+    InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:[NSBundle mainBundle]];
+    [info setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+    [self presentModalViewController:info animated:YES];
+    [info release];
+}
 
+-(void)showNotificationWithMessage:(NSString*)message
+{
+    CGFloat limit = 460;
+    NSInteger index;
+    for (index= 0; index < 8 ; index++) 
+    {
+        if (!notificationSlot[index]) 
+        {
+            notificationSlot[index] = YES;
+            limit = limit-50*index;
+            
+            break;
+        }
+    }
+    if (index==8) 
+        return;
+    
+    UILabel *labelAux = [[UILabel alloc] initWithFrame:CGRectMake(5, limit, 310, 45)];
+    [labelAux setBackgroundColor:[UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0]];
+    [labelAux setFont:[UIFont systemFontOfSize:15]];
+    [labelAux setTextColor:[UIColor darkGrayColor]];
+    [labelAux setShadowColor:[UIColor whiteColor]];
+    [labelAux setShadowOffset:CGSizeMake(0, 1)];
+    [labelAux.layer setCornerRadius:10];
+    [labelAux.layer setBorderColor:[UIColor darkGrayColor].CGColor];
+    [labelAux.layer setBorderWidth:1.0];
+    [labelAux setTextAlignment:UITextAlignmentCenter];
+    [labelAux setText:message];
+    [labelAux setTag:index];
+    [self.view insertSubview:labelAux atIndex:20];
+    [labelAux release];
+    
+    [self animationStart:labelAux];
+    
+    //[labelAux removeFromSuperview];
+}
 
+-(void)animationStart:(UILabel*)label
+{
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -50);
+    [UIView animateWithDuration:0.5 
+                          delay:0 
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         label.transform = transform;
+                     }
+                     completion:^(BOOL finished) {
+                         [self animationFinish:label];
+                     }];
+}
+-(void)animationFinish:(UILabel*)label
+{
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(320, -50);
+    [UIView animateWithDuration:0.3 
+                          delay:2.0 
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         label.transform = transform;
+                     }
+                     completion:^(BOOL finished) {
+                        
+                         notificationSlot[[label tag]] = NO;
+                         [label removeFromSuperview];
+                     }];
+    
+    
+}
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     //emiza a cargar, muestra el actitivy
@@ -202,7 +261,7 @@
     
     if([urlString isEqualToString:@"https://1.1.1.1/logout.html"])
     {
-        [UIAlertView showAdviceWithMessage:@"Te has desconectado correctamente"];
+        [self showNotificationWithMessage:@"Te has desconectado correctamente"];
     }
 
 }
@@ -218,27 +277,27 @@
     //si intenta cargar usm, entonces perfect
     if ([urlString isEqualToString:@"http://www.usm.cl/"] || [urlString hasSuffix:@"statusCode=1"]) 
     {
-        [UIAlertView showAdviceWithMessage:@"Te has conectado correctamente"];
+        [self showNotificationWithMessage:@"Te has conectado correctamente"];
         [activityIndicator setHidden:YES];
         return NO;
     }
-    else if ([urlString hasSuffix:@"statusCode=3"])
+    else if ([urlString hasSuffix:@"statusCode=3"] || [urlString hasSuffix:@"statusCode=2"])
     {
-        [UIAlertView showAdviceWithMessage:@"Tu usuario ya est� siendo utilizando por otro dispositivo"];
+        [self showNotificationWithMessage:@"Tu usuario ya está siendo utilizando por otro dispositivo"];
         [activityIndicator setHidden:YES];
         return NO;
         
     }
     else if ([urlString hasSuffix:@"statusCode=4"])
     {
-        [UIAlertView showAdviceWithMessage:@"Nombre de usuario y contrase�a incorrectos"];
+        [self showNotificationWithMessage:@"Nombre de usuario y contraseña incorrectos"];
         [activityIndicator setHidden:YES];
         return NO;
         
     }
     else if([urlString hasSuffix:@"statusCode=5"])
     {
-        [UIAlertView showAdviceWithMessage:@"Nombre de usuario o contrase�a incorrectos"];
+        [self showNotificationWithMessage:@"Nombre de usuario o contraseña incorrectos"];
         [activityIndicator setHidden:YES];
         return NO;
     }
@@ -252,13 +311,7 @@
 {
     [activityIndicator setHidden:YES];
     
-    NSLog(@"FAIL!");
-    
-    if (!timeOut) 
-    {
-        [UIAlertView showAdviceWithMessage:@"Asegurate de estar conectado a una red WIFI de la universidad"];
-        timeOut = YES;
-    }
+    NSLog(@"FAIL! %@",error );
     
 }
 -(void)webViewDidTimeOut:(id)sender
@@ -266,7 +319,8 @@
     if ([webHidden isLoading] && !timeOut) 
     {
         [webHidden stopLoading];
-        [UIAlertView showAdviceWithMessage:@"Paso el tiempo m�ximo de espera"];
+        //[UIAlertView showAdviceWithMessage:@"Paso el tiempo máximo de espera"];
+        [self showNotificationWithMessage:@"Paso el tiempo máximo de espera"];
         timeOut = YES;
     }
     

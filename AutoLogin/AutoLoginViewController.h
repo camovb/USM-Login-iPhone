@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "InfoViewController.h"
 
 @interface AutoLoginViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate> {
     IBOutlet UITextField *textFieldUser;
@@ -22,8 +23,11 @@
     IBOutlet UIWebView *webHidden;
     
     BOOL timeOut;
-    
+        
+    BOOL notificationSlot[8];
 }
+
+
 
 - (IBAction)buttonLoginPressed:(id)sender;
 - (IBAction)buttonLogoutPressed:(id)sender;
@@ -33,4 +37,13 @@
 - (IBAction)switchSaveChangeValue:(id)sender;
 
 - (IBAction)switchAutoConnectChangeValue:(id)sender;
+
+- (IBAction)infoButtonDidPress:(id)sender;
+
+-(void)showNotificationWithMessage:(NSString*)message;
+
+-(void)animationStart:(UILabel*)label;
+-(void)animationFinish:(UILabel*)label;
+
+
 @end
