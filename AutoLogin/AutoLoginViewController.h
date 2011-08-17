@@ -42,8 +42,8 @@
 
 -(void)showNotificationWithMessage:(NSString*)message;
 
--(void)animationStart:(UILabel*)label;
--(void)animationFinish:(UILabel*)label;
+-(void)animationStart:(UIButton*)button;
+-(void)animationFinish:(UIButton*)button;
 
 
 @end

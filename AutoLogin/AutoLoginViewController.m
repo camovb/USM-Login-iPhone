@@ -194,52 +194,72 @@
     if (index==8) 
         return;
     
-    UILabel *labelAux = [[UILabel alloc] initWithFrame:CGRectMake(5, limit, 310, 45)];
-    [labelAux setBackgroundColor:[UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0]];
-    [labelAux setFont:[UIFont systemFontOfSize:15]];
-    [labelAux setTextColor:[UIColor darkGrayColor]];
-    [labelAux setShadowColor:[UIColor whiteColor]];
-    [labelAux setShadowOffset:CGSizeMake(0, 1)];
-    [labelAux.layer setCornerRadius:10];
-    [labelAux.layer setBorderColor:[UIColor darkGrayColor].CGColor];
-    [labelAux.layer setBorderWidth:1.0];
-    [labelAux setTextAlignment:UITextAlignmentCenter];
-    [labelAux setText:message];
-    [labelAux setTag:index];
-    [self.view insertSubview:labelAux atIndex:20];
-    [labelAux release];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(5, limit, 310, 45)];
+    [button setBackgroundColor:[UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0]];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [button.titleLabel setShadowOffset:CGSizeMake(0, 1)];
+    [button.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [button setTitle:message forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button.titleLabel setText:message];
     
-    [self animationStart:labelAux];
+    [button.layer setCornerRadius:10];
+    [button.layer setBorderColor:[UIColor darkGrayColor].CGColor];
+    [button.layer setBorderWidth:1.0];
+
+    [button addTarget:self action:@selector(closeNotificationDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTag:index];
+    [self.view insertSubview:button atIndex:20];
+    [button release];
+    
+    [self animationStart:button];
     
     //[labelAux removeFromSuperview];
 }
+-(void)closeNotificationDidPress:(UIButton*)button
+{
+    //NSInteger index = [button tag];
+    
+    [UIView animateWithDuration:0.3 
+                          delay:0.0 
+                        options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         button.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {}];
+    
+    notificationSlot[[button tag]] = NO;
 
--(void)animationStart:(UILabel*)label
+    
+}
+-(void)animationStart:(UIButton*)button
 {
     CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -50);
     [UIView animateWithDuration:0.5 
                           delay:0 
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         label.transform = transform;
+                         button.transform = transform;
                      }
                      completion:^(BOOL finished) {
-                         [self animationFinish:label];
+                         //[self animationFinish:button];
                      }];
+    
+    [self performSelector:@selector(animationFinish:) withObject:button afterDelay:2.5];
 }
--(void)animationFinish:(UILabel*)label
+-(void)animationFinish:(UIButton*)button
 {
     CGAffineTransform transform = CGAffineTransformMakeTranslation(320, -50);
     [UIView animateWithDuration:0.3 
-                          delay:2.0 
+                          delay:0.0 
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         label.transform = transform;
+                         button.transform = transform;
                      }
                      completion:^(BOOL finished) {
-                        
-                         notificationSlot[[label tag]] = NO;
-                         [label removeFromSuperview];
+                         notificationSlot[[button tag]] = NO;
+                         [button removeFromSuperview];
                      }];
     
     
