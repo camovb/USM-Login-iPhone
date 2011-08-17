@@ -299,12 +299,14 @@
     {
         [self showNotificationWithMessage:@"Te has conectado correctamente"];
         [activityIndicator setHidden:YES];
+        timeOut = YES;
         return NO;
     }
     else if ([urlString hasSuffix:@"statusCode=3"] || [urlString hasSuffix:@"statusCode=2"])
     {
-        [self showNotificationWithMessage:@"Tu usuario ya está siendo utilizando por otro dispositivo"];
+        [self showNotificationWithMessage:@"Tu usuario está utilizando por otro dispositivo"];
         [activityIndicator setHidden:YES];
+        timeOut = YES;
         return NO;
         
     }
@@ -312,6 +314,7 @@
     {
         [self showNotificationWithMessage:@"Nombre de usuario y contraseña incorrectos"];
         [activityIndicator setHidden:YES];
+        timeOut = YES;
         return NO;
         
     }
@@ -319,6 +322,7 @@
     {
         [self showNotificationWithMessage:@"Nombre de usuario o contraseña incorrectos"];
         [activityIndicator setHidden:YES];
+        timeOut = YES;
         return NO;
     }
     
