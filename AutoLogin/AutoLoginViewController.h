@@ -9,41 +9,46 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "InfoViewController.h"
+#import "NSString+AESCrypt.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
 
-@interface AutoLoginViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate> {
+@interface AutoLoginViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource> {
     IBOutlet UITextField *textFieldUser;
     IBOutlet UITextField *textFieldPass;
-    IBOutlet UISwitch *switchRemember;
+
     IBOutlet UISwitch *switchAutoConnect;
     
-    IBOutlet UIActivityIndicatorView *activityIndicator;
-    IBOutlet UINavigationBar *navBar;
-    
+    IBOutlet UIActivityIndicatorView *activityIndicator;    
     //se usa un webView para aceptar las alertas que envian las páginas
     IBOutlet UIWebView *webHidden;
     
+    IBOutlet UITableView *tableViewAccounts;
+    
     BOOL timeOut;
-        
+    
+    BOOL tryWithAll;
+    
     BOOL notificationSlot[8];
+    
 }
 
+- (IBAction)saveAccountButtonDidPress:(id)sender;
 
-
-- (IBAction)buttonLoginPressed:(id)sender;
 - (IBAction)buttonLogoutPressed:(id)sender;
 
 - (IBAction)hideKeyboard:(id)sender;
-
-- (IBAction)switchSaveChangeValue:(id)sender;
 
 - (IBAction)switchAutoConnectChangeValue:(id)sender;
 
 - (IBAction)infoButtonDidPress:(id)sender;
 
--(void)showNotificationWithMessage:(NSString*)message;
+- (void)showNotificationWithMessage:(NSString*)message;
+
+- (void)tryToConnectWithAccountAtIndex:(NSInteger)index;
 
 -(void)animationStart:(UIButton*)button;
 -(void)animationFinish:(UIButton*)button;
 
+-(BOOL)isUsmNetwork;
 
 @end

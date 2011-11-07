@@ -18,105 +18,119 @@
 }
 @end
 
+NSString *secretKey = @"<#key#>";
 
 @implementation AutoLoginViewController
+
+/*******************************************************************************
+ MÉTODOS DE INICIO
+ ******************************************************************************/
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    //fondo al navigation (43 para que se vea la linea)
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 43)];
-    [bgView setBackgroundColor:[UIColor colorWithRed:0 green:200.0/255.0 blue:245.0/255.0 alpha:0.5]];
-    [navBar insertSubview:bgView atIndex:0];
-    [bgView release];
-    
-    //si tiene los datos guardados, los recupera
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"pass"];
-    if (username) 
-        [textFieldUser setText:username];
-    if (password) 
-        [textFieldPass setText:password];
     
     NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
     
     if (autoConnect && [autoConnect boolValue]) 
         [switchAutoConnect setOn:YES];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(applicationDidBecomeActive:) 
                                                  name:UIApplicationDidBecomeActiveNotification 
                                                object:nil];
     
-    //indica el origen en Y de la primera notificación    
     for (int i=0; i<8; i++) 
         notificationSlot[i]=NO;
 }
 
 //si tiene guardado que intente conectar al iniciar...
 -(void)applicationDidBecomeActive:(id)sender
-{
-    NSLog(@"Active");
-    
+{    
     NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
     
-    if (autoConnect && [autoConnect boolValue]) 
-        [self buttonLoginPressed:nil];
+    if (autoConnect && [autoConnect boolValue])
+    {
+        tryWithAll = YES;
+        [self tryToConnectWithAccountAtIndex:0];
+    }
+}
+/*******************************************************************************
+ MÉTODOS INTERNOS
+ ******************************************************************************/
+
+//método obtenido en
+//http://stackoverflow.com/questions/5198716/iphone-get-ssid-without-private-library
+-(BOOL)isUsmNetwork
+{
+    NSArray *ifs = (id)CNCopySupportedInterfaces();
+    id info = nil;
+    for (NSString *ifnam in ifs) {
+        info = (id)CNCopyCurrentNetworkInfo((CFStringRef)ifnam);
+        if (info && [info count])
+            break;
+        [info release];
+    }
+    
+    [ifs release];
+    NSDictionary *wifi = [info autorelease];
+    
+    NSString *ssid = [wifi objectForKey:@"SSID"];
+    
+    if ([ssid hasPrefix:@"usm_"]) 
+        return YES;
+    
+    [self showNotificationWithMessage:@"Debes estar conectado a una red USM"];
+    
+    return NO;
+    
 }
 
+- (void)tryToConnectWithAccountAtIndex:(NSInteger)index
+{
+    [self hideKeyboard:nil];
+    
+    if (![self isUsmNetwork])
+        return;
+    
+    NSMutableArray *accounts = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+
+    if ([accounts count] <= index)
+        return;
+
+    NSDictionary *userData = [accounts objectAtIndex:index];
+    NSString *user = [userData objectForKey:@"user"];
+    NSString *pass = [(NSString*)[userData objectForKey:@"pass"] AES256DecryptWithKey:secretKey];
+    //prepara la consulta
+    NSString *post= [NSString stringWithFormat:@"username=%@&password=%@&buttonClicked=4",user,pass];
+    NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    
+    NSURL *url = [NSURL URLWithString:@"https://1.1.1.1/login.html"];
+    
+    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:url] autorelease];
+    [request setHTTPBody:postData];
+    [request setHTTPMethod:@"POST"];
+    
+    //carga la consulta en un webView
+    [webHidden loadRequest:request];
+    
+    //le pasa el index del usuario que trata de logear...
+    [webHidden setTag:index];
+    
+    [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
+    timeOut = NO;
+}
+/*******************************************************************************
+ MÉTODOS DE INTERFAZ
+ ******************************************************************************/
 //esconde los teclados
 -(IBAction)hideKeyboard:(id)sender
 {
     [textFieldUser resignFirstResponder];
     [textFieldPass resignFirstResponder];
 }
-
-//si cambia el switch, elimna lo guardado o guarda
--(IBAction)switchSaveChangeValue:(id)sender
+- (IBAction)saveAccountButtonDidPress:(id)sender
 {
-    if ([switchRemember isOn]) 
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"user"];
-        [[NSUserDefaults standardUserDefaults] setObject:textFieldPass.text forKey:@"pass"];
-    }
-    else
-    {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"pass"];
-    }
-    
-    //si la acción la envia el boton
-    if (sender) 
-    {
-        if ([switchRemember isOn]) 
-        {
-            [switchAutoConnect setEnabled:YES];
-        }
-        else
-        {
-            [switchAutoConnect setEnabled:NO];
-            [switchAutoConnect setOn:NO animated:YES];
-        }
-    }
-}
-- (IBAction)switchAutoConnectChangeValue:(id)sender
-{
-    if ([switchAutoConnect isOn]) 
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"auto"];
-        [[NSUserDefaults standardUserDefaults] setObject:textFieldUser.text forKey:@"user"];
-        [[NSUserDefaults standardUserDefaults] setObject:textFieldPass.text forKey:@"pass"];
-    }
-    else
-    {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"auto"];
-    }
-}
-
--(IBAction)buttonLoginPressed:(id)sender
-{
-    
     [self hideKeyboard:nil];
     
     //valida los campos...
@@ -131,30 +145,41 @@
         return;
     }
     
-    //guarda los datos si es necesario
-    [self switchSaveChangeValue:nil];
+    NSMutableArray *accounts = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"]];
+    if (!accounts) 
+        accounts = [NSMutableArray array];
+
+    NSString *passEnc = [textFieldPass.text AES256EncryptWithKey:secretKey];
+    NSDictionary *userData = [NSDictionary dictionaryWithObjectsAndKeys:textFieldUser.text,@"user",passEnc,@"pass",nil];
     
-    //prepara la consulta
-    NSString *post= [NSString stringWithFormat:@"username=%@&password=%@&buttonClicked=4",textFieldUser.text,textFieldPass.text];
-    NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    [accounts addObject:userData];
     
-    NSURL *url = [NSURL URLWithString:@"https://1.1.1.1/login.html"];
+    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
     
-    NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:url] autorelease];
-    [request setHTTPBody:postData];
-    [request setHTTPMethod:@"POST"];
+    textFieldUser.text = @"";
+    textFieldPass.text = @"";
     
-    //carga la consulta en un webView
-    [webHidden loadRequest:request];
-    [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
-    timeOut = NO;
+    [tableViewAccounts reloadData];
+    
 }
+
+- (IBAction)switchAutoConnectChangeValue:(id)sender
+{
+    if ([switchAutoConnect isOn])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"auto"];
+        tryWithAll = YES;
+        [self tryToConnectWithAccountAtIndex:0];
+    }
+    else
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"auto"];
+}
+
+
 -(IBAction)buttonLogoutPressed:(id)sender
 {
     [self hideKeyboard:nil];
-    
-    [self switchSaveChangeValue:nil];
-    
+        
     //manda logout
     NSString *post= @"userStatus=1";
     NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
@@ -176,7 +201,9 @@
     [self presentModalViewController:info animated:YES];
     [info release];
 }
-
+/*******************************************************************************
+ MÉTODOS PARA LAS NOTIFICACIONES
+ ******************************************************************************/
 -(void)showNotificationWithMessage:(NSString*)message
 {
     CGFloat limit = 460;
@@ -196,7 +223,8 @@
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(5, limit, 310, 45)];
     [button setBackgroundColor:[UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0]];
-    [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Marker Felt" size:15.0]];
+    [button.titleLabel setMinimumFontSize:8.0];
     [button.titleLabel setShadowOffset:CGSizeMake(0, 1)];
     [button.titleLabel setTextAlignment:UITextAlignmentCenter];
     [button setTitle:message forState:UIControlStateNormal];
@@ -264,6 +292,11 @@
     
     
 }
+
+/*******************************************************************************
+ WEB VIEW DELEGATE
+ ******************************************************************************/
+
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     //emiza a cargar, muestra el actitivy
@@ -307,23 +340,18 @@
         [self showNotificationWithMessage:@"Tu usuario está utilizando por otro dispositivo"];
         [activityIndicator setHidden:YES];
         timeOut = YES;
+        if(tryWithAll) [self tryToConnectWithAccountAtIndex:webView.tag+1];
         return NO;
         
     }
-    else if ([urlString hasSuffix:@"statusCode=4"])
-    {
-        [self showNotificationWithMessage:@"Nombre de usuario y contraseña incorrectos"];
-        [activityIndicator setHidden:YES];
-        timeOut = YES;
-        return NO;
-        
-    }
-    else if([urlString hasSuffix:@"statusCode=5"])
+    else if ([urlString hasSuffix:@"statusCode=4"] || [urlString hasSuffix:@"statusCode=5"])
     {
         [self showNotificationWithMessage:@"Nombre de usuario o contraseña incorrectos"];
         [activityIndicator setHidden:YES];
         timeOut = YES;
+        if(tryWithAll) [self tryToConnectWithAccountAtIndex:webView.tag+1];
         return NO;
+        
     }
     
     
@@ -337,19 +365,25 @@
     
     NSLog(@"FAIL! %@",error );
     
+    if(tryWithAll) [self tryToConnectWithAccountAtIndex:webView.tag+1];
+
+    
 }
 -(void)webViewDidTimeOut:(id)sender
 {
     if ([webHidden isLoading] && !timeOut) 
     {
         [webHidden stopLoading];
-        //[UIAlertView showAdviceWithMessage:@"Paso el tiempo máximo de espera"];
         [self showNotificationWithMessage:@"Paso el tiempo máximo de espera"];
         timeOut = YES;
+        if(tryWithAll) [self tryToConnectWithAccountAtIndex:webHidden.tag+1];
+
     }
     
 }
-
+/*******************************************************************************
+ TEXT FIELD DELEGATE
+ ******************************************************************************/
 
 //el primero avancza al siguiente campo, y el otro envia..
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -360,13 +394,72 @@
     }
     else if([textField tag]==888)
     {
-        [self buttonLoginPressed:nil];
+        [self saveAccountButtonDidPress:nil];
     }
     
     return YES;
 }
+/*******************************************************************************
+ TABLEVIEW DELEGATES
+ ******************************************************************************/
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"] count];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"Cell";
 
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier] autorelease];
+    }
+    
+    NSMutableArray *accounts = [[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"];
+    NSDictionary *account = [accounts objectAtIndex:indexPath.row];
+    
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Marker Felt" size:22];
+    cell.textLabel.minimumFontSize = 9.0;
+    cell.textLabel.highlightedTextColor = [UIColor blackColor];
+    [cell setSelectedBackgroundView:[[UIView alloc] autorelease]];
+    
+    cell.imageView.image = [UIImage imageNamed:@"email"];
+    cell.textLabel.text = [account objectForKey:@"user"];
+    
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    tryWithAll = NO;
+    [self tryToConnectWithAccountAtIndex:indexPath.row];
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setSelected:NO];
+    
+}
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    return UITableViewCellEditingStyleDelete;
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *accounts = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"]];
+
+    [accounts removeObjectAtIndex:indexPath.row];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
+    
+    [tableViewAccounts reloadData];
+}
+
+/*******************************************************************************
+ FIN
+ ******************************************************************************/
 - (void)dealloc
 {
     [super dealloc];

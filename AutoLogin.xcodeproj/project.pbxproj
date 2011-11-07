@@ -12,6 +12,16 @@
 		F14A206C13D52FA3008EE7A4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F14A206B13D52FA3008EE7A4 /* Default@2x.png */; };
 		F15AE70113D4FD5D0032F61E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE70013D4FD5D0032F61E /* icon.png */; };
 		F15AE70313D4FD650032F61E /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F15AE70213D4FD650032F61E /* icon@2x.png */; };
+		F182A4CE1467855B00CEA3EF /* NSData+AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = F182A4CB1467855B00CEA3EF /* NSData+AESCrypt.m */; };
+		F182A4CF1467855B00CEA3EF /* NSString+AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = F182A4CD1467855B00CEA3EF /* NSString+AESCrypt.m */; };
+		F182A4D61467954200CEA3EF /* emailAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4D41467954200CEA3EF /* emailAdd.png */; };
+		F182A4D71467954200CEA3EF /* emailAdd@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4D51467954200CEA3EF /* emailAdd@2x.png */; };
+		F182A4DA1467AE8D00CEA3EF /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4D81467AE8D00CEA3EF /* email.png */; };
+		F182A4DB1467AE8D00CEA3EF /* email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4D91467AE8D00CEA3EF /* email@2x.png */; };
+		F182A4E01467B46000CEA3EF /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4DC1467B46000CEA3EF /* info.png */; };
+		F182A4E11467B46000CEA3EF /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4DD1467B46000CEA3EF /* info@2x.png */; };
+		F182A4E21467B46000CEA3EF /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4DE1467B46000CEA3EF /* logout.png */; };
+		F182A4E31467B46000CEA3EF /* logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F182A4DF1467B46000CEA3EF /* logout@2x.png */; };
 		F19BA5B713F4B77E00C2C967 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F19BA5B613F4B77E00C2C967 /* InfoViewController.m */; };
 		F19BA5BB13F4B7A700C2C967 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F19BA5B913F4B7A700C2C967 /* InfoView.xib */; };
 		F1E25BB713A86B43007979C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BB613A86B43007979C4 /* UIKit.framework */; };
@@ -27,11 +37,23 @@
 
 /* Begin PBXFileReference section */
 		F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		F14A206913D52F93008EE7A4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F14A206B13D52FA3008EE7A4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		F14A206913D52F93008EE7A4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		F14A206B13D52FA3008EE7A4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		F1526BCC13D54F610013C88D /* AutoLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F15AE70013D4FD5D0032F61E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		F15AE70213D4FD650032F61E /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		F15AE70013D4FD5D0032F61E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		F15AE70213D4FD650032F61E /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../icon@2x.png"; sourceTree = "<group>"; };
+		F182A4CA1467855B00CEA3EF /* NSData+AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+AESCrypt.h"; path = "AutoLogin/NSData+AESCrypt.h"; sourceTree = "<group>"; };
+		F182A4CB1467855B00CEA3EF /* NSData+AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+AESCrypt.m"; path = "AutoLogin/NSData+AESCrypt.m"; sourceTree = "<group>"; };
+		F182A4CC1467855B00CEA3EF /* NSString+AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AESCrypt.h"; path = "AutoLogin/NSString+AESCrypt.h"; sourceTree = "<group>"; };
+		F182A4CD1467855B00CEA3EF /* NSString+AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AESCrypt.m"; path = "AutoLogin/NSString+AESCrypt.m"; sourceTree = "<group>"; };
+		F182A4D41467954200CEA3EF /* emailAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emailAdd.png; sourceTree = SOURCE_ROOT; };
+		F182A4D51467954200CEA3EF /* emailAdd@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emailAdd@2x.png"; sourceTree = SOURCE_ROOT; };
+		F182A4D81467AE8D00CEA3EF /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = SOURCE_ROOT; };
+		F182A4D91467AE8D00CEA3EF /* email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email@2x.png"; sourceTree = SOURCE_ROOT; };
+		F182A4DC1467B46000CEA3EF /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = SOURCE_ROOT; };
+		F182A4DD1467B46000CEA3EF /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = SOURCE_ROOT; };
+		F182A4DE1467B46000CEA3EF /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = SOURCE_ROOT; };
+		F182A4DF1467B46000CEA3EF /* logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout@2x.png"; sourceTree = SOURCE_ROOT; };
 		F19BA5B513F4B77E00C2C967 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		F19BA5B613F4B77E00C2C967 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		F19BA5BA13F4B7A700C2C967 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = AutoLogin/en.lproj/InfoView.xib; sourceTree = "<group>"; };
@@ -65,14 +87,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F1E25BA713A86B43007979C4 = {
+		F182A4C81467854C00CEA3EF /* External */ = {
 			isa = PBXGroup;
 			children = (
+				F182A4CA1467855B00CEA3EF /* NSData+AESCrypt.h */,
+				F182A4CB1467855B00CEA3EF /* NSData+AESCrypt.m */,
+				F182A4CC1467855B00CEA3EF /* NSString+AESCrypt.h */,
+				F182A4CD1467855B00CEA3EF /* NSString+AESCrypt.m */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		F182A4D01467856B00CEA3EF /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				F1E25BCE13A86B43007979C4 /* AutoLoginViewController.xib */,
 				F19BA5B913F4B7A700C2C967 /* InfoView.xib */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		F182A4D11467857B00CEA3EF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F1E25BC513A86B43007979C4 /* AutoLoginAppDelegate.h */,
+				F1E25BC613A86B43007979C4 /* AutoLoginAppDelegate.m */,
+				F1E25BC813A86B43007979C4 /* MainWindow.xib */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		F182A4D21467859E00CEA3EF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F182A4D41467954200CEA3EF /* emailAdd.png */,
+				F182A4D51467954200CEA3EF /* emailAdd@2x.png */,
 				F14A206B13D52FA3008EE7A4 /* Default@2x.png */,
 				F14A206913D52F93008EE7A4 /* Default.png */,
 				F15AE70213D4FD650032F61E /* icon@2x.png */,
 				F15AE70013D4FD5D0032F61E /* icon.png */,
+				F182A4D81467AE8D00CEA3EF /* email.png */,
+				F182A4D91467AE8D00CEA3EF /* email@2x.png */,
+				F182A4DC1467B46000CEA3EF /* info.png */,
+				F182A4DD1467B46000CEA3EF /* info@2x.png */,
+				F182A4DE1467B46000CEA3EF /* logout.png */,
+				F182A4DF1467B46000CEA3EF /* logout@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F182A4D3146785B000CEA3EF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F1E25BCB13A86B43007979C4 /* AutoLoginViewController.h */,
+				F1E25BCC13A86B43007979C4 /* AutoLoginViewController.m */,
+				F19BA5B513F4B77E00C2C967 /* InfoViewController.h */,
+				F19BA5B613F4B77E00C2C967 /* InfoViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F1E25BA713A86B43007979C4 = {
+			isa = PBXGroup;
+			children = (
+				F182A4C81467854C00CEA3EF /* External */,
 				F1E25BBC13A86B43007979C4 /* AutoLogin */,
 				F1E25BB513A86B43007979C4 /* Frameworks */,
 				F1E25BB313A86B43007979C4 /* Products */,
@@ -101,14 +179,10 @@
 		F1E25BBC13A86B43007979C4 /* AutoLogin */ = {
 			isa = PBXGroup;
 			children = (
-				F1E25BC513A86B43007979C4 /* AutoLoginAppDelegate.h */,
-				F1E25BC613A86B43007979C4 /* AutoLoginAppDelegate.m */,
-				F1E25BC813A86B43007979C4 /* MainWindow.xib */,
-				F1E25BCB13A86B43007979C4 /* AutoLoginViewController.h */,
-				F1E25BCC13A86B43007979C4 /* AutoLoginViewController.m */,
-				F1E25BCE13A86B43007979C4 /* AutoLoginViewController.xib */,
-				F19BA5B513F4B77E00C2C967 /* InfoViewController.h */,
-				F19BA5B613F4B77E00C2C967 /* InfoViewController.m */,
+				F182A4D3146785B000CEA3EF /* ViewControllers */,
+				F182A4D21467859E00CEA3EF /* Resources */,
+				F182A4D11467857B00CEA3EF /* Base */,
+				F182A4D01467856B00CEA3EF /* Interface */,
 				F1E25BBD13A86B43007979C4 /* Supporting Files */,
 			);
 			path = AutoLogin;
@@ -183,6 +257,14 @@
 				F14A206A13D52F93008EE7A4 /* Default.png in Resources */,
 				F14A206C13D52FA3008EE7A4 /* Default@2x.png in Resources */,
 				F19BA5BB13F4B7A700C2C967 /* InfoView.xib in Resources */,
+				F182A4D61467954200CEA3EF /* emailAdd.png in Resources */,
+				F182A4D71467954200CEA3EF /* emailAdd@2x.png in Resources */,
+				F182A4DA1467AE8D00CEA3EF /* email.png in Resources */,
+				F182A4DB1467AE8D00CEA3EF /* email@2x.png in Resources */,
+				F182A4E01467B46000CEA3EF /* info.png in Resources */,
+				F182A4E11467B46000CEA3EF /* info@2x.png in Resources */,
+				F182A4E21467B46000CEA3EF /* logout.png in Resources */,
+				F182A4E31467B46000CEA3EF /* logout@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +279,8 @@
 				F1E25BC713A86B43007979C4 /* AutoLoginAppDelegate.m in Sources */,
 				F1E25BCD13A86B43007979C4 /* AutoLoginViewController.m in Sources */,
 				F19BA5B713F4B77E00C2C967 /* InfoViewController.m in Sources */,
+				F182A4CE1467855B00CEA3EF /* NSData+AESCrypt.m in Sources */,
+				F182A4CF1467855B00CEA3EF /* NSString+AESCrypt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +293,7 @@
 				F19BA5BA13F4B7A700C2C967 /* en */,
 			);
 			name = InfoView.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		F1E25BBF13A86B43007979C4 /* InfoPlist.strings */ = {
