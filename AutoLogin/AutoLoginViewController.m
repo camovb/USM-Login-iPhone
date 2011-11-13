@@ -18,7 +18,7 @@
 }
 @end
 
-NSString *secretKey = @"<#key#>";
+NSString *secretKey = @"secretKey";
 
 @implementation AutoLoginViewController
 
@@ -29,6 +29,7 @@ NSString *secretKey = @"<#key#>";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO];
     
     NSNumber *autoConnect = [[NSUserDefaults standardUserDefaults] objectForKey:@"auto"];
     
@@ -42,6 +43,8 @@ NSString *secretKey = @"<#key#>";
     
     for (int i=0; i<8; i++) 
         notificationSlot[i]=NO;
+    
+    tableViewAccounts.allowsSelectionDuringEditing = YES;
 }
 
 //si tiene guardado que intente conectar al iniciar...
@@ -54,6 +57,8 @@ NSString *secretKey = @"<#key#>";
         tryWithAll = YES;
         [self tryToConnectWithAccountAtIndex:0];
     }
+    
+    [tableViewAccounts reloadData];
 }
 /*******************************************************************************
  MÉTODOS INTERNOS
@@ -120,6 +125,17 @@ NSString *secretKey = @"<#key#>";
     [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
     timeOut = NO;
 }
+- (void) swipeRow:(UISwipeGestureRecognizer*)swipe
+{
+    if ([tableViewAccounts isEditing]) 
+    {
+        [tableViewAccounts setEditing:NO animated:YES];
+    }
+    else
+    {
+        [tableViewAccounts setEditing:YES animated:YES];
+    }
+}
 /*******************************************************************************
  MÉTODOS DE INTERFAZ
  ******************************************************************************/
@@ -180,6 +196,9 @@ NSString *secretKey = @"<#key#>";
 {
     [self hideKeyboard:nil];
         
+    if (![self isUsmNetwork]) 
+        return;
+    
     //manda logout
     NSString *post= @"userStatus=1";
     NSData *postData = [post dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
@@ -193,6 +212,8 @@ NSString *secretKey = @"<#key#>";
     [webHidden loadRequest:request];
     [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
     timeOut = NO;
+    
+    [tableViewAccounts reloadData];
 }
 - (IBAction)infoButtonDidPress:(id)sender
 {
@@ -206,14 +227,14 @@ NSString *secretKey = @"<#key#>";
  ******************************************************************************/
 -(void)showNotificationWithMessage:(NSString*)message
 {
-    CGFloat limit = 460;
+    CGFloat limit = -50;
     NSInteger index;
     for (index= 0; index < 8 ; index++) 
     {
         if (!notificationSlot[index]) 
         {
             notificationSlot[index] = YES;
-            limit = limit-50*index;
+            limit = limit+50*index;
             
             break;
         }
@@ -223,7 +244,7 @@ NSString *secretKey = @"<#key#>";
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(5, limit, 310, 45)];
     [button setBackgroundColor:[UIColor colorWithRed:205.0/255.0 green:205.0/255.0 blue:205.0/255.0 alpha:1.0]];
-    [button.titleLabel setFont:[UIFont fontWithName:@"Marker Felt" size:15.0]];
+    [button.titleLabel setFont:[UIFont fontWithName:@"Marker Felt" size:18.0]];
     [button.titleLabel setMinimumFontSize:8.0];
     [button.titleLabel setShadowOffset:CGSizeMake(0, 1)];
     [button.titleLabel setTextAlignment:UITextAlignmentCenter];
@@ -263,7 +284,7 @@ NSString *secretKey = @"<#key#>";
 }
 -(void)animationStart:(UIButton*)button
 {
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, -50);
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(0, 50);
     [UIView animateWithDuration:0.5 
                           delay:0 
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
@@ -278,7 +299,7 @@ NSString *secretKey = @"<#key#>";
 }
 -(void)animationFinish:(UIButton*)button
 {
-    CGAffineTransform transform = CGAffineTransformMakeTranslation(320, -50);
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(320, 50);
     [UIView animateWithDuration:0.3 
                           delay:0.0 
                         options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
@@ -333,6 +354,10 @@ NSString *secretKey = @"<#key#>";
         [self showNotificationWithMessage:@"Te has conectado correctamente"];
         [activityIndicator setHidden:YES];
         timeOut = YES;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:webView.tag inSection:0];
+        UITableViewCell *cell = [tableViewAccounts cellForRowAtIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
         return NO;
     }
     else if ([urlString hasSuffix:@"statusCode=3"] || [urlString hasSuffix:@"statusCode=2"])
@@ -390,7 +415,7 @@ NSString *secretKey = @"<#key#>";
 {
     if ([textField tag]==777) 
     {
-        [textFieldPass becomeFirstResponder];
+        [textField resignFirstResponder];
     }
     else if([textField tag]==888)
     {
@@ -430,10 +455,27 @@ NSString *secretKey = @"<#key#>";
     cell.imageView.image = [UIImage imageNamed:@"email"];
     cell.textLabel.text = [account objectForKey:@"user"];
     
+    UISwipeGestureRecognizer *right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRow:)];
+    [right setDirection:UISwipeGestureRecognizerDirectionRight];
+    [cell addGestureRecognizer:right];
+    [right release];
+    
+    UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRow:)];
+    [left setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [cell addGestureRecognizer:left];
+    [left release];
+    
     return cell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if( [tableView isEditing] )
+    {
+        [tableView setEditing:NO animated:YES];
+        return;
+    }
+    
     tryWithAll = NO;
     [self tryToConnectWithAccountAtIndex:indexPath.row];
     
@@ -443,8 +485,9 @@ NSString *secretKey = @"<#key#>";
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     return UITableViewCellEditingStyleDelete;
+    
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -454,9 +497,31 @@ NSString *secretKey = @"<#key#>";
     
     [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
     
-    [tableViewAccounts reloadData];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"Eliminar";
+}
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   // if (indexPath.row == 0) // Don't move the first row
+   //     return NO;
+    return YES;
 }
 
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    NSMutableArray *accounts = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accounts"]];
+    
+    NSDictionary *user = [[accounts objectAtIndex:sourceIndexPath.row] retain];
+    [accounts removeObjectAtIndex:sourceIndexPath.row];
+    [accounts insertObject:user atIndex:destinationIndexPath.row];
+    [user release];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:accounts forKey:@"accounts"];
+    
+}
 /*******************************************************************************
  FIN
  ******************************************************************************/
