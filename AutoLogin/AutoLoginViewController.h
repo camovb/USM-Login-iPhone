@@ -12,43 +12,52 @@
 #import "NSString+AESCrypt.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 
-@interface AutoLoginViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource> {
-    IBOutlet UITextField *textFieldUser;
-    IBOutlet UITextField *textFieldPass;
-
-    IBOutlet UISwitch *switchAutoConnect;
-    
-    IBOutlet UIActivityIndicatorView *activityIndicator;    
-    //se usa un webView para aceptar las alertas que envian las páginas
-    IBOutlet UIWebView *webHidden;
-    
-    IBOutlet UITableView *tableViewAccounts;
-        
+@interface AutoLoginViewController : UIViewController 
+<UIWebViewDelegate,UITextFieldDelegate> 
+{
+    UIWebView *webHidden;
     BOOL timeOut;
-    
-    BOOL tryWithAll;
-    
-    BOOL notificationSlot[8];
-    
+            
 }
+@property(nonatomic,retain) IBOutlet UITextField *textFieldUser;
+@property(nonatomic,retain) IBOutlet UITextField *textFieldPass;
+@property(nonatomic,retain) IBOutlet UISwitch *rememberOption;
+@property(nonatomic,retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property(nonatomic,retain) IBOutlet UIControl *containerView;;
+@property(nonatomic,retain) IBOutlet UIImageView *logo;
+@property(nonatomic,retain) IBOutlet UIButton *extensionButton;
+@property(nonatomic,retain) IBOutlet UIButton *loginButton;
+@property(nonatomic,retain) IBOutlet UIButton *logoutButton; 
 
-- (IBAction)saveAccountButtonDidPress:(id)sender;
+@property(nonatomic,retain) IBOutlet UIControl *notificationView;
+@property(nonatomic,retain) IBOutlet UILabel   *notificationLabel;
+@property(nonatomic,retain) IBOutlet UIImageView *notificationImage;
 
-- (IBAction)buttonLogoutPressed:(id)sender;
+@property(nonatomic,retain) IBOutlet UIView *rememberView;
+@property(nonatomic,retain) IBOutlet UILabel *rememberLabel;
+@property(nonatomic,retain) IBOutlet UISwitch *rememberSwitch;
 
 - (IBAction)hideKeyboard:(id)sender;
 
-- (IBAction)switchAutoConnectChangeValue:(id)sender;
+- (IBAction)loginButtonDidPress:(id)sender;
+
+- (IBAction)extensionButtonDidPress:(id)sender;
+
+- (IBAction)buttonLogoutPressed:(id)sender;
 
 - (IBAction)infoButtonDidPress:(id)sender;
 
-- (void)showNotificationWithMessage:(NSString*)message;
+- (IBAction)rememberOptionDidChange:(id)sender;
+- (IBAction)rememberSwitchDidChange:(id)sender;
 
-- (void)tryToConnectWithAccountAtIndex:(NSInteger)index;
 
--(void)animationStart:(UIButton*)button;
--(void)animationFinish:(UIButton*)button;
+- (IBAction)notificationDidPress:(id)sender;
 
--(BOOL)isUsmNetwork;
+- (void)showNotificationMessage:(NSString*)message isSuccess:(BOOL)success;
+
+
+- (void)tryToConnect;
+
+- (BOOL)isUsmNetwork;
 
 @end
