@@ -44,23 +44,36 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
                                                  name:UIApplicationDidBecomeActiveNotification 
                                                object:nil];
     
-    
+    //color más oscuro a los placeholders
     [textFieldUser setValue:[UIColor darkGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [textFieldPass setValue:[UIColor darkGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     
+    //agrega la view sobre la otra..
     [[rememberOption superview] addSubview:rememberView];
-    [rememberView setAlpha:0];
-    [rememberView setUserInteractionEnabled:NO];
+
     
-    
-    BOOL on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"remember"] boolValue];
+    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+    //rescata si está recordado.. y actualiza los switch
+    BOOL on = [[UD objectForKey:@"remember"] boolValue];
     rememberOption.on = on;
     rememberSwitch.on = on;
     
+    //hace visible la view y agrega los datos.
     if (on) 
     {
         rememberView.alpha=1;
         rememberView.userInteractionEnabled=YES;
+        
+        NSString *user = [UD objectForKey:@"user"];
+        NSString *extension = [UD objectForKey:@"extension"];
+        
+        rememberLabel.text = [user stringByAppendingString:extension];
+
+    }
+    else
+    {
+        [rememberView setAlpha:0];
+        [rememberView setUserInteractionEnabled:NO];
     }
 }
 
@@ -94,7 +107,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
         rememberOption.on=NO;
         rememberOption.enabled = NO;
         return;
-    }
+    } 
     
     [self tryToConnect];
 }
@@ -170,11 +183,14 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [textFieldUser resignFirstResponder];
     [textFieldPass resignFirstResponder];
     CGRect frame = containerView.frame;
-    if (frame.origin.y == -110)
+    if (frame.origin.y == -105)
     {
         frame.origin.y = 0;
         
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.5
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
             containerView.frame = frame;
             logo.alpha = 1;
         } completion:^(BOOL finished) {}];
@@ -262,7 +278,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
         [UD setObject:extension forKey:@"extension"];
         [self hideKeyboard:nil];
         
-        rememberLabel.text = [NSString stringWithFormat:@"%@%@",user,extension];
+        rememberLabel.text = [user stringByAppendingString:extension];
         
         rememberView.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
@@ -431,9 +447,12 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     CGRect frame = containerView.frame;
     
     if (frame.origin.y == 0) {
-        frame.origin.y = -110;
+        frame.origin.y = -105;
         
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.5 
+                              delay:0
+                            options:UIViewAnimationOptionAllowUserInteraction
+                         animations:^{
             containerView.frame = frame;
             logo.alpha = 0;
         } completion:^(BOOL finished) {}];
