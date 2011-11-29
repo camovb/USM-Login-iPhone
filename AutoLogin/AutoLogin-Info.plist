@@ -50,6 +50,8 @@
 	<array/>
 	<key>CFBundleVersion</key>
 	<string>1.1</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackOpaque</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
