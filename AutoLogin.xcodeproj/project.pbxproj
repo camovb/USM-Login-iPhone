@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F118365C1483C3CB00D6ED81 /* logo-codegears.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365A1483C3CB00D6ED81 /* logo-codegears.png */; };
+		F118365D1483C3CB00D6ED81 /* logo-codegears@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */; };
 		F14A205B13D51E13008EE7A4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */; };
 		F19BA5B713F4B77E00C2C967 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F19BA5B613F4B77E00C2C967 /* InfoViewController.m */; };
 		F19BA5BB13F4B7A700C2C967 /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F19BA5B913F4B7A700C2C967 /* InfoView.xib */; };
@@ -59,6 +61,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F118365A1483C3CB00D6ED81 /* logo-codegears.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears.png"; path = "Resources/logo-codegears.png"; sourceTree = "<group>"; };
+		F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears@2x.png"; path = "Resources/logo-codegears@2x.png"; sourceTree = "<group>"; };
 		F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F1526BCC13D54F610013C88D /* AutoLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19BA5B513F4B77E00C2C967 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				F1C9D0861480C896006AA758 /* Default.png */,
 				F1C9D0841480C88C006AA758 /* icon.png */,
 				F1C9D0821480C888006AA758 /* icon@2x.png */,
+				F118365A1483C3CB00D6ED81 /* logo-codegears.png */,
+				F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */,
 				F1C9D07614809DDD006AA758 /* background-notification.png */,
 				F1C9D07714809DDD006AA758 /* background-notification@2x.png */,
 				F1C9D07814809DDD006AA758 /* image-notification-fail.png */,
@@ -303,6 +309,7 @@
 		F1E25BA913A86B43007979C4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Universidad Tecnica Federico Santa Mari­a";
 			};
 			buildConfigurationList = F1E25BAC13A86B43007979C4 /* Build configuration list for PBXProject "AutoLogin" */;
@@ -366,6 +373,8 @@
 				F1C9D0851480C88C006AA758 /* icon.png in Resources */,
 				F1C9D0871480C896006AA758 /* Default.png in Resources */,
 				F1C9D0891480C89B006AA758 /* Default@2x.png in Resources */,
+				F118365C1483C3CB00D6ED81 /* logo-codegears.png in Resources */,
+				F118365D1483C3CB00D6ED81 /* logo-codegears@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

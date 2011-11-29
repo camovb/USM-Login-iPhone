@@ -21,13 +21,15 @@
 NSString *secretKey = @"USMEmailPasswordEncrypt";
 
 @implementation AutoLoginViewController
-@synthesize textFieldUser,textFieldPass,rememberOption;
+@synthesize textFieldUser,textFieldPass,rememberOption,rememberOptionLabel;
 @synthesize activityIndicator;
 @synthesize containerView;
 @synthesize logo;
 @synthesize extensionButton,loginButton,logoutButton;
 @synthesize notificationView,notificationLabel,notificationImage;
-@synthesize rememberView,rememberLabel,rememberSwitch;
+@synthesize rememberView,rememberLabel;
+
+
 /*******************************************************************************
  MÉTODOS DE INICIO
  ******************************************************************************/
@@ -49,20 +51,22 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [textFieldPass setValue:[UIColor darkGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     //agrega la view sobre la otra..
-    [[rememberOption superview] addSubview:rememberView];
-
+    [[textFieldUser superview] addSubview:rememberView];
     
-    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
     //rescata si está recordado.. y actualiza los switch
+    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
     BOOL on = [[UD objectForKey:@"remember"] boolValue];
+    
     rememberOption.on = on;
-    rememberSwitch.on = on;
     
     //hace visible la view y agrega los datos.
     if (on) 
     {
-        rememberView.alpha=1;
+        rememberView.alpha = 1.0;
         rememberView.userInteractionEnabled=YES;
+        
+        rememberOptionLabel.alpha = 1.0;
+        rememberOption.alpha = 1.0;
         
         NSString *user = [UD objectForKey:@"user"];
         NSString *extension = [UD objectForKey:@"extension"];
@@ -72,10 +76,21 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     }
     else
     {
-        [rememberView setAlpha:0];
+        rememberView.alpha = 0.0;
         [rememberView setUserInteractionEnabled:NO];
+        
+        rememberOptionLabel.alpha = 0.0;
+        rememberOption.alpha = 0.0;
     }
+    
+    if (!on && (textFieldPass.text.length == 0 || textFieldUser.text.length == 0))
+    {
+        loginButton.alpha = 0.0;
+        logoutButton.alpha = 0.0;
+    }
+
 }
+
 
 //si tiene guardado que intente conectar al iniciar...
 -(void)applicationDidBecomeActive:(id)sender
@@ -112,6 +127,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [self tryToConnect];
 }
 
+
 /*******************************************************************************
  MÉTODOS INTERNOS
  ******************************************************************************/
@@ -120,7 +136,6 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
 //http://stackoverflow.com/questions/5198716/iphone-get-ssid-without-private-library
 -(BOOL)isUsmNetwork
 {
-    
     NSArray *ifs = (id)CNCopySupportedInterfaces();
     id info = nil;
     for (NSString *ifnam in ifs) {
@@ -141,8 +156,8 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [self showNotificationMessage:@"Debes estar conectado a una red USM" isSuccess:NO];
     
     return NO;
-    
 }
+
 
 - (void)tryToConnect
 {
@@ -174,20 +189,49 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
     timeOut = NO;
 }
+
+
+- (void)inputFilled:(BOOL)isFilled
+{
+    if (isFilled)
+    {
+        rememberOption.enabled = YES;
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState animations:^
+         {
+             self.rememberOptionLabel.alpha = 1.0;
+             self.rememberOption.alpha = 1.0;
+             self.loginButton.alpha = 1.0;
+         } completion:^(BOOL finished) {}];
+    }
+    else
+    {
+        rememberOption.enabled = NO;
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState animations:^
+         {
+             self.rememberOptionLabel.alpha = 0.0;
+             self.rememberOption.alpha = 0.0;
+             self.loginButton.alpha = 0.0;
+         } completion:^(BOOL finished) {}];
+    }
+}
+
+
 /*******************************************************************************
  MÉTODOS DE INTERFAZ
  ******************************************************************************/
+
 //esconde los teclados
--(IBAction)hideKeyboard:(id)sender
+- (IBAction)hideKeyboard:(id)sender
 {
     [textFieldUser resignFirstResponder];
     [textFieldPass resignFirstResponder];
     CGRect frame = containerView.frame;
+    
     if (frame.origin.y == -105)
     {
         frame.origin.y = 0;
         
-        [UIView animateWithDuration:0.5
+        [UIView animateWithDuration:0.3
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseInOut
                          animations:^{
@@ -196,6 +240,8 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
         } completion:^(BOOL finished) {}];
     }
 }
+
+
 - (IBAction)loginButtonDidPress:(id)sender
 {
     [self hideKeyboard:nil];
@@ -213,13 +259,12 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     }
     
     [self tryToConnect];
-        
 }
+
 
 - (IBAction)extensionButtonDidPress:(id)sender
 {
     UIButton *button = sender;
-    
     NSString *title = button.titleLabel.text;
     
     if ([title isEqualToString:@"@alumnos.usm.cl"]) 
@@ -230,9 +275,10 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     {
         [button setTitle:@"@alumnos.usm.cl" forState:UIControlStateNormal];
     }
-    
 }
--(IBAction)buttonLogoutPressed:(id)sender
+
+
+- (IBAction)buttonLogoutPressed:(id)sender
 {
     [self hideKeyboard:nil];
         
@@ -252,8 +298,9 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [webHidden loadRequest:request];
     [NSTimer scheduledTimerWithTimeInterval:7.0 target:self selector:@selector(webViewDidTimeOut:) userInfo:nil repeats:NO];
     timeOut = NO;
-    
 }
+
+
 - (IBAction)infoButtonDidPress:(id)sender
 {
     InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:[NSBundle mainBundle]];
@@ -261,12 +308,13 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [self presentModalViewController:info animated:YES];
     [info release];
 }
+
+
 - (IBAction)rememberOptionDidChange:(id)sender
 {
     UISwitch *sw = sender;
-        
-    
     NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+    
     if ([sw isOn]) 
     {
         NSString *user = textFieldUser.text;
@@ -278,26 +326,18 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
         [UD setObject:extension forKey:@"extension"];
         [self hideKeyboard:nil];
         
+        rememberOptionLabel.text = @"Olvídame";
         rememberLabel.text = [user stringByAppendingString:extension];
-        
         rememberView.userInteractionEnabled = YES;
+        
         [UIView animateWithDuration:0.5 animations:^{
             rememberView.alpha = 1;
         } completion:^(BOOL finished) {}];
-
     }
-    
-    [UD setObject:[NSNumber numberWithBool:sw.on] forKey:@"remember"];
-
-    rememberSwitch.on = sw.on;
-}
-- (IBAction)rememberSwitchDidChange:(id)sender
-{
-    UISwitch *sw = sender;
-    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
-
-    if (![sw isOn]) 
+    else
     {
+        rememberOptionLabel.text = @"Recuerdame";
+        
         rememberView.userInteractionEnabled = NO;
         [UIView animateWithDuration:0.5 animations:^{
             rememberView.alpha = 0;
@@ -310,12 +350,13 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     }
     
     [UD setObject:[NSNumber numberWithBool:sw.on] forKey:@"remember"];
-
-    rememberOption.on = sw.on;
 }
+
+
 /*******************************************************************************
  MÉTODOS PARA LAS NOTIFICACIONES
  ******************************************************************************/
+
 - (void)showNotificationMessage:(NSString*)message isSuccess:(BOOL)success;
 {
     NSLog(@"Notification: %@",message);
@@ -339,8 +380,9 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
                      }];
     
     [self performSelector:@selector(notificationDidPress:) withObject:nil afterDelay:2];
-    
 }
+
+
 - (IBAction)notificationDidPress:(id)sender
 {
     [UIView animateWithDuration:0.5 
@@ -352,6 +394,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
                          
                      }];
 }
+
 
 /*******************************************************************************
  WEB VIEW DELEGATE
@@ -375,6 +418,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     {
         [self showNotificationMessage:@"Te has desconectado correctamente" isSuccess:YES];
         logoutButton.userInteractionEnabled = NO;
+        loginButton.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
             logoutButton.alpha = 0;
             loginButton.alpha = 1;
@@ -382,6 +426,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     }
 
 }
+
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
@@ -400,24 +445,34 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
         [self showNotificationMessage:@"Te has conectado correctamente" isSuccess:YES];
         
         loginButton.userInteractionEnabled = NO;
+        logoutButton.userInteractionEnabled=YES;
         [UIView animateWithDuration:0.5 animations:^{
             loginButton.alpha = 0;
             logoutButton.alpha = 1;
         } completion:^(BOOL finished) {}];
         
-    }
-    else if (status==2 || status==3)
-        [self showNotificationMessage:@"Tu usuario está utilizando por otro dispositivo" isSuccess:NO];
-    else if (status==4 || status==5)
-        [self showNotificationMessage:@"Nombre de usuario o contraseña incorrectos" isSuccess:NO];
-
-    if (status!=0) 
-    {
         [activityIndicator setHidden:YES];
         timeOut = YES;
         
         return NO;
     }
+    else if (status==2 || status==3)
+    {
+        [self showNotificationMessage:@"Tu usuario está utilizando por otro dispositivo" isSuccess:NO];
+        [activityIndicator setHidden:YES];
+        timeOut = YES;
+        
+        return NO;
+    }
+    else if (status==4 || status==5)
+    {
+        [self showNotificationMessage:@"Nombre de usuario o contraseña incorrectos" isSuccess:NO];
+        [activityIndicator setHidden:YES];
+        timeOut = YES;
+        
+        return NO;   
+    }
+
     
     
     return YES;
@@ -428,6 +483,8 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
 {
     [activityIndicator setHidden:YES];
 }
+
+
 -(void)webViewDidTimeOut:(id)sender
 {
     if ([webHidden isLoading] && !timeOut) 
@@ -437,11 +494,13 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
         timeOut = YES;
 
     }
-    
 }
+
+
 /*******************************************************************************
  TEXT FIELD DELEGATE
  ******************************************************************************/
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     CGRect frame = containerView.frame;
@@ -449,7 +508,7 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     if (frame.origin.y == 0) {
         frame.origin.y = -105;
         
-        [UIView animateWithDuration:0.5 
+        [UIView animateWithDuration:0.3 
                               delay:0
                             options:UIViewAnimationOptionAllowUserInteraction
                          animations:^{
@@ -460,47 +519,66 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
 
     return YES;
 }
+
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self hideKeyboard:nil];
+    if (textField.tag == loginTagUserTextField) 
+    {
+        [textFieldPass becomeFirstResponder];
+    }
+    else
+    {
+        [self tryToConnect];
+    }
     return YES;
 }
-
 
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
     NSLog(@"newText: %@",newText);
-    rememberOption.enabled = NO;
-    
-    if(textField.tag == textFieldUser.tag)
+
+    //de esta forma valida que ambos campos de texto estén completos
+    if (textField.tag == loginTagUserTextField)
     {
-        if ([newText length] >0 && [textFieldPass.text length] >0 ) 
-        {
-            rememberOption.enabled = YES;
-        }
+        if ([newText length] > 0 && [textFieldPass.text length] > 0) 
+            [self inputFilled:YES];
+        else
+            [self inputFilled:NO];
     }
     else
     {
-        if ([newText length] >0 && [textFieldUser.text length] >0) 
-        {
-            rememberOption.enabled = YES;
-        }
+        if ([newText length] > 0 && [textFieldUser.text length] > 0) 
+            [self inputFilled:YES];
+        else
+            [self inputFilled:NO];
     }
 
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    
+    
+    [self inputFilled:NO];
     
     return YES;
 }
 
+
 /*******************************************************************************
  FIN
  ******************************************************************************/
+
 - (void)dealloc
 {
     [textFieldUser release];
     [textFieldPass release];
     [rememberOption release];
+    [rememberOptionLabel release];
     [activityIndicator release];
     [webHidden release];
     [containerView release];
@@ -516,7 +594,6 @@ NSString *secretKey = @"USMEmailPasswordEncrypt";
     [rememberView removeFromSuperview];
     [rememberView release];
     [rememberLabel release];
-    [rememberSwitch release];
     
     [super dealloc];
 }

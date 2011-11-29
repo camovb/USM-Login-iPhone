@@ -12,6 +12,12 @@
 #import "NSString+AESCrypt.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
 
+typedef enum
+{
+    loginTagUserTextField = 777,
+    loginTagPassTextField = 888
+}loginTags;
+
 @interface AutoLoginViewController : UIViewController 
 <UIWebViewDelegate,UITextFieldDelegate> 
 {
@@ -21,7 +27,6 @@
 }
 @property(nonatomic,retain) IBOutlet UITextField *textFieldUser;
 @property(nonatomic,retain) IBOutlet UITextField *textFieldPass;
-@property(nonatomic,retain) IBOutlet UISwitch *rememberOption;
 @property(nonatomic,retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property(nonatomic,retain) IBOutlet UIControl *containerView;;
 @property(nonatomic,retain) IBOutlet UIImageView *logo;
@@ -33,31 +38,23 @@
 @property(nonatomic,retain) IBOutlet UILabel   *notificationLabel;
 @property(nonatomic,retain) IBOutlet UIImageView *notificationImage;
 
+@property(nonatomic,retain) IBOutlet UISwitch *rememberOption;
+@property(nonatomic,retain) IBOutlet UILabel *rememberOptionLabel;
+
 @property(nonatomic,retain) IBOutlet UIView *rememberView;
 @property(nonatomic,retain) IBOutlet UILabel *rememberLabel;
-@property(nonatomic,retain) IBOutlet UISwitch *rememberSwitch;
 
 - (IBAction)hideKeyboard:(id)sender;
-
 - (IBAction)loginButtonDidPress:(id)sender;
-
 - (IBAction)extensionButtonDidPress:(id)sender;
-
 - (IBAction)buttonLogoutPressed:(id)sender;
-
 - (IBAction)infoButtonDidPress:(id)sender;
-
 - (IBAction)rememberOptionDidChange:(id)sender;
-- (IBAction)rememberSwitchDidChange:(id)sender;
-
-
 - (IBAction)notificationDidPress:(id)sender;
 
+- (void)inputFilled:(BOOL)isFilled;
 - (void)showNotificationMessage:(NSString*)message isSuccess:(BOOL)success;
-
-
 - (void)tryToConnect;
-
 - (BOOL)isUsmNetwork;
 
 @end
