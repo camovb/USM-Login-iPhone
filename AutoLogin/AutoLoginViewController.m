@@ -18,7 +18,7 @@
 }
 @end
 
-NSString *secretKey = @"USMEmailPasswordEncrypt";
+NSString *secretKey = @"key";
 
 @implementation AutoLoginViewController
 @synthesize textFieldUser,textFieldPass,rememberOption,rememberOptionLabel;
