@@ -8,6 +8,7 @@
 
 #import "AutoLoginViewController.h"
 
+#pragma mark - NSURLRequest Category
 //acepta los certificados chantas de la U
 @interface NSURLRequest(anyssl)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host;
@@ -18,16 +19,29 @@
 }
 @end
 
-NSString *secretKey = @"key";
+#pragma mark - Static Key for Encrypt
+
+static NSString *secretKey = @"key";
+
+#pragma mark - AutologinViewController Implementation
 
 @implementation AutoLoginViewController
-@synthesize textFieldUser,textFieldPass,rememberOption,rememberOptionLabel;
+
+@synthesize textFieldUser;
+@synthesize textFieldPass;
+@synthesize rememberOption;
+@synthesize rememberOptionLabel;
 @synthesize activityIndicator;
 @synthesize containerView;
 @synthesize logo;
-@synthesize extensionButton,loginButton,logoutButton;
-@synthesize notificationView,notificationLabel,notificationImage;
-@synthesize rememberView,rememberLabel;
+@synthesize extensionButton;
+@synthesize loginButton;
+@synthesize logoutButton;
+@synthesize notificationView;
+@synthesize notificationLabel;
+@synthesize notificationImage;
+@synthesize rememberView;
+@synthesize rememberLabel;
 
 
 /*******************************************************************************
@@ -90,8 +104,18 @@ NSString *secretKey = @"key";
     }
 
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.textFieldUser.text && textFieldUser.text.length>1) 
+    {
+        loginButton.alpha = 1;
+        loginButton.userInteractionEnabled = YES;
+        
+        logoutButton.alpha = 0;
+        logoutButton.userInteractionEnabled = NO;
+    }
 
-
+}
 //si tiene guardado que intente conectar al iniciar...
 -(void)applicationDidBecomeActive:(id)sender
 {   
@@ -216,9 +240,8 @@ NSString *secretKey = @"key";
 }
 
 
-/*******************************************************************************
- MÉTODOS DE INTERFAZ
- ******************************************************************************/
+#pragma mark - 
+#pragma mark IBActions
 
 //esconde los teclados
 - (IBAction)hideKeyboard:(id)sender
@@ -269,9 +292,13 @@ NSString *secretKey = @"key";
     
     if ([title isEqualToString:@"@alumnos.usm.cl"]) 
     {
+        [button setTitle:@"@sansanos.usm.cl" forState:UIControlStateNormal];
+    }
+    else if([title isEqualToString:@"@sansanos.usm.cl"])
+    {
         [button setTitle:@"@usm.cl" forState:UIControlStateNormal];
     }
-    else
+    else 
     {
         [button setTitle:@"@alumnos.usm.cl" forState:UIControlStateNormal];
     }
@@ -353,9 +380,8 @@ NSString *secretKey = @"key";
 }
 
 
-/*******************************************************************************
- MÉTODOS PARA LAS NOTIFICACIONES
- ******************************************************************************/
+#pragma mark -
+#pragma mark Notifications Methods
 
 - (void)showNotificationMessage:(NSString*)message isSuccess:(BOOL)success;
 {
@@ -395,10 +421,8 @@ NSString *secretKey = @"key";
                      }];
 }
 
-
-/*******************************************************************************
- WEB VIEW DELEGATE
- ******************************************************************************/
+#pragma mark -
+#pragma mark WebView Delegate
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
@@ -473,8 +497,6 @@ NSString *secretKey = @"key";
         return NO;   
     }
 
-    
-    
     return YES;
 }
 
@@ -492,14 +514,11 @@ NSString *secretKey = @"key";
         [webHidden stopLoading];
         [self showNotificationMessage:@"Paso el tiempo máximo de espera" isSuccess:NO];
         timeOut = YES;
-
     }
 }
 
-
-/*******************************************************************************
- TEXT FIELD DELEGATE
- ******************************************************************************/
+#pragma mark -
+#pragma mark TextField Delegate
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -538,7 +557,6 @@ NSString *secretKey = @"key";
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    NSLog(@"newText: %@",newText);
 
     //de esta forma valida que ambos campos de texto estén completos
     if (textField.tag == loginTagUserTextField)
@@ -561,17 +579,12 @@ NSString *secretKey = @"key";
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    
-    
     [self inputFilled:NO];
-    
     return YES;
 }
 
-
-/*******************************************************************************
- FIN
- ******************************************************************************/
+#pragma mark -
+#pragma mark dealloc all the things!!
 
 - (void)dealloc
 {
