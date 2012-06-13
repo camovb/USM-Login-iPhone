@@ -82,7 +82,7 @@ static NSString *secretKey = @"key";
         rememberOptionLabel.alpha = 1.0;
         rememberOption.alpha = 1.0;
         
-        NSString *user = [UD objectForKey:@"user"];
+        NSString *user      = [UD objectForKey:@"user"];
         NSString *extension = [UD objectForKey:@"extension"];
         
         rememberLabel.text = [user stringByAppendingString:extension];
@@ -91,7 +91,7 @@ static NSString *secretKey = @"key";
     else
     {
         rememberView.alpha = 0.0;
-        [rememberView setUserInteractionEnabled:NO];
+        rememberView.userInteractionEnabled=NO;
         
         rememberOptionLabel.alpha = 0.0;
         rememberOption.alpha = 0.0;
