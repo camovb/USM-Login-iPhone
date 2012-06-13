@@ -104,18 +104,6 @@ static NSString *secretKey = @"key";
     }
 
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    if (self.textFieldUser.text && textFieldUser.text.length>1) 
-    {
-        loginButton.alpha = 1;
-        loginButton.userInteractionEnabled = YES;
-        
-        logoutButton.alpha = 0;
-        logoutButton.userInteractionEnabled = NO;
-    }
-
-}
 //si tiene guardado que intente conectar al iniciar...
 -(void)applicationDidBecomeActive:(id)sender
 {   
@@ -147,6 +135,15 @@ static NSString *secretKey = @"key";
         rememberOption.enabled = NO;
         return;
     } 
+    
+    if (self.textFieldUser.text && textFieldUser.text.length>1) 
+    {
+        loginButton.alpha = 1;
+        loginButton.userInteractionEnabled = YES;
+        
+        logoutButton.alpha = 0;
+        logoutButton.userInteractionEnabled = NO;
+    }
     
     [self tryToConnect];
 }
