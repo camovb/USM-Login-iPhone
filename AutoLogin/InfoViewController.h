@@ -10,6 +10,10 @@
 
 @interface InfoViewController : UIViewController
 
+@property (nonatomic,retain) IBOutlet UIButton *buttonURL;
+@property (nonatomic,retain) IBOutlet UIButton *buttonEmailCan;
+@property (nonatomic,retain) IBOutlet UIButton *buttonEmailCamo;
+
 - (IBAction)infoButtonDidPress:(id)sender;
 - (IBAction)URLButtonDidPress:(id)sender;
 - (IBAction)mailButtonDidPress:(id)sender;

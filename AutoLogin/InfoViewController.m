@@ -7,8 +7,32 @@
 //
 
 #import "InfoViewController.h"
+#import <QuartzCore/QuartzCore.h>
+
+const NSString* urlGithub  = @"https://github.com/camitox/USM-Login-iPhone";
+
+const NSString* mailFormat  = @"mailto:jose.canepa@alumnos.usm.cl,camilo.verab@alumnos.usm.cl?subject=%@&body=%@";
+const NSString* mailBody    = @"Camo, Can:\n\nLuego de ver la App USMWifi, pensaba que";
+const NSString* mailSubject = @"Sobre la app USMWifi";
 
 @implementation InfoViewController
+
+@synthesize buttonURL, buttonEmailCan, buttonEmailCamo;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    NSArray *buttons = [NSArray arrayWithObjects:buttonURL, buttonEmailCan, buttonEmailCamo, nil];
+    
+    for (UIButton *button in buttons)
+    {
+        button.backgroundColor = [UIColor colorWithWhite:0.75 alpha:1.0];
+        button.layer.cornerRadius = 16.0;
+        button.clipsToBounds = YES;
+        button.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+    }
+}
 
 - (void)infoButtonDidPress:(id)sender
 {
@@ -17,19 +41,12 @@
 
 - (void)URLButtonDidPress:(id)sender
 {
-    UIButton *button = (UIButton*)sender;
-    NSString *urlString = button.titleLabel.text;
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:(NSString*)urlGithub]];
 }
 
 - (void)mailButtonDidPress:(id)sender
 {
-    NSString *body = @"Camo, Can:\n\nLuego de ver la App USMWifi, pensaba que";
-    NSString *title = @"Sobre la app USMWifi";
-    
-    NSString *urlString = [NSString stringWithFormat:@"mailto:jose.canepa@alumnos.usm.cl,camilo.verab@alumnos.usm.cl?subject=%@&body=%@",[title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *urlString = [NSString stringWithFormat:(NSString*)mailFormat,[mailSubject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[mailBody stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSURL *url = [NSURL URLWithString:urlString];
     
     [[UIApplication sharedApplication] openURL:url];
