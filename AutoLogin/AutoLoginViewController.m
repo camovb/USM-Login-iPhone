@@ -35,6 +35,7 @@ static NSString *secretKey = @"key";
 
 @implementation AutoLoginViewController
 
+@synthesize popoverInfo=_popoverInfo;
 @synthesize textFieldUser;
 @synthesize textFieldPass;
 @synthesize rememberOption;
@@ -296,6 +297,15 @@ static NSString *secretKey = @"key";
     return NO;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (self.popoverInfo)
+    {
+        [self.popoverInfo dismissPopoverAnimated:YES];
+        self.popoverInfo = nil;
+    }
+}
+
 #pragma mark - 
 #pragma mark IBActions
 
@@ -386,10 +396,29 @@ static NSString *secretKey = @"key";
 
 - (IBAction)infoButtonDidPress:(id)sender
 {
-    InfoViewController *info = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:[NSBundle mainBundle]];
-    [info setModalTransitionStyle:UIModalTransitionStylePartialCurl];
-    [self presentModalViewController:info animated:YES];
-    [info release];
+    InfoViewController *infoViewController = [[InfoViewController alloc] initWithNibName:@"InfoView" bundle:[NSBundle mainBundle]];
+    
+    if (!isIpad)
+    {
+        [infoViewController setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+        [self presentModalViewController:infoViewController animated:YES];
+        [infoViewController release];
+    }
+    else
+    {
+        if (_popoverInfo)
+        {
+            [_popoverInfo dismissPopoverAnimated:YES];
+            [_popoverInfo release];
+        }
+        
+        UIButton *senderButton = sender;
+        
+        _popoverInfo = [[UIPopoverController alloc] initWithContentViewController:infoViewController];
+        _popoverInfo.popoverContentSize = CGSizeMake(320, 32);
+        [_popoverInfo presentPopoverFromRect:senderButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+        [_popoverInfo setPopoverContentSize:CGSizeMake(320, 400) animated:YES];
+    }
 }
 
 
@@ -434,6 +463,8 @@ static NSString *secretKey = @"key";
     
     [UD setObject:[NSNumber numberWithBool:sw.on] forKey:@"remember"];
 }
+
+
 
 
 #pragma mark -
@@ -647,6 +678,12 @@ static NSString *secretKey = @"key";
 
 - (void)dealloc
 {
+    if (_popoverInfo)
+    {
+        [_popoverInfo release];
+        _popoverInfo = nil;
+    }
+    
     [textFieldUser release];
     [textFieldPass release];
     [rememberOption release];

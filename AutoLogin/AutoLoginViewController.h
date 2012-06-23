@@ -18,8 +18,7 @@ typedef enum
     loginTagPassTextField = 888
 }loginTags;
 
-@interface AutoLoginViewController : UIViewController 
-<UIWebViewDelegate,UITextFieldDelegate> 
+@interface AutoLoginViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate> 
 {
     UIWebView *webHidden;
     BOOL timeOut;
@@ -43,6 +42,8 @@ typedef enum
 
 @property(nonatomic,retain) IBOutlet UIView *rememberView;
 @property(nonatomic,retain) IBOutlet UILabel *rememberLabel;
+
+@property(nonatomic,retain) UIPopoverController *popoverInfo;
 
 - (IBAction)hideKeyboard:(id)sender;
 - (IBAction)loginButtonDidPress:(id)sender;
