@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A093FF9159530B000EDFBBB /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A093FF7159530B000EDFBBB /* MainWindow-iPad.xib */; };
+		5A093FFC1595313800EDFBBB /* AutoLoginView-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A093FFA1595313800EDFBBB /* AutoLoginView-iPad.xib */; };
+		5A094003159541C500EDFBBB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A094001159541B300EDFBBB /* QuartzCore.framework */; };
+		5A0940111595551100EDFBBB /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0940101595551100EDFBBB /* Default-Landscape@2x~ipad.png */; };
+		5A0940151595555200EDFBBB /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0940141595555200EDFBBB /* Default-Portrait@2x~ipad.png */; };
+		5A09401A159559C700EDFBBB /* background-pattern@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094016159559C400EDFBBB /* background-pattern@2x~ipad.png */; };
+		5A09401B159559C700EDFBBB /* background-pattern~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094017159559C400EDFBBB /* background-pattern~ipad.png */; };
+		5A09401C159559C700EDFBBB /* background-shadow@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094018159559C500EDFBBB /* background-shadow@2x~ipad.png */; };
+		5A09401D159559C700EDFBBB /* background-shadow~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094019159559C600EDFBBB /* background-shadow~ipad.png */; };
 		F118365C1483C3CB00D6ED81 /* logo-codegears.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365A1483C3CB00D6ED81 /* logo-codegears.png */; };
 		F118365D1483C3CB00D6ED81 /* logo-codegears@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */; };
 		F14A205B13D51E13008EE7A4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */; };
@@ -48,8 +57,6 @@
 		F1C9D08114809DDD006AA758 /* image-notification-success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1C9D07B14809DDD006AA758 /* image-notification-success@2x.png */; };
 		F1C9D0831480C888006AA758 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1C9D0821480C888006AA758 /* icon@2x.png */; };
 		F1C9D0851480C88C006AA758 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F1C9D0841480C88C006AA758 /* icon.png */; };
-		F1C9D0871480C896006AA758 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F1C9D0861480C896006AA758 /* Default.png */; };
-		F1C9D0891480C89B006AA758 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1C9D0881480C89B006AA758 /* Default@2x.png */; };
 		F1E25BB713A86B43007979C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BB613A86B43007979C4 /* UIKit.framework */; };
 		F1E25BB913A86B43007979C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BB813A86B43007979C4 /* Foundation.framework */; };
 		F1E25BBB13A86B43007979C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E25BBA13A86B43007979C4 /* CoreGraphics.framework */; };
@@ -61,6 +68,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A093FF8159530B000EDFBBB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		5A093FFB1595313800EDFBBB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "iPad/en.lproj/AutoLoginView-iPad.xib"; sourceTree = "<group>"; };
+		5A094001159541B300EDFBBB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5A0940101595551100EDFBBB /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
+		5A0940141595555200EDFBBB /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		5A094016159559C400EDFBBB /* background-pattern@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-pattern@2x~ipad.png"; path = "Resources/background-pattern@2x~ipad.png"; sourceTree = "<group>"; };
+		5A094017159559C400EDFBBB /* background-pattern~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-pattern~ipad.png"; path = "Resources/background-pattern~ipad.png"; sourceTree = "<group>"; };
+		5A094018159559C500EDFBBB /* background-shadow@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-shadow@2x~ipad.png"; path = "Resources/background-shadow@2x~ipad.png"; sourceTree = "<group>"; };
+		5A094019159559C600EDFBBB /* background-shadow~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-shadow~ipad.png"; path = "Resources/background-shadow~ipad.png"; sourceTree = "<group>"; };
 		F118365A1483C3CB00D6ED81 /* logo-codegears.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears.png"; path = "Resources/logo-codegears.png"; sourceTree = "<group>"; };
 		F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears@2x.png"; path = "Resources/logo-codegears@2x.png"; sourceTree = "<group>"; };
 		F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -127,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A094003159541C500EDFBBB /* QuartzCore.framework in Frameworks */,
 				F14A205B13D51E13008EE7A4 /* SystemConfiguration.framework in Frameworks */,
 				F1E25BB713A86B43007979C4 /* UIKit.framework in Frameworks */,
 				F1E25BB913A86B43007979C4 /* Foundation.framework in Frameworks */,
@@ -148,6 +165,7 @@
 		F182A4D01467856B00CEA3EF /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				5A093FFA1595313800EDFBBB /* AutoLoginView-iPad.xib */,
 				F1E25BCE13A86B43007979C4 /* AutoLoginViewController.xib */,
 				F19BA5B913F4B7A700C2C967 /* InfoView.xib */,
 			);
@@ -160,6 +178,7 @@
 				F1E25BC513A86B43007979C4 /* AutoLoginAppDelegate.h */,
 				F1E25BC613A86B43007979C4 /* AutoLoginAppDelegate.m */,
 				F1E25BC813A86B43007979C4 /* MainWindow.xib */,
+				5A093FF7159530B000EDFBBB /* MainWindow-iPad.xib */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -167,6 +186,12 @@
 		F182A4D21467859E00CEA3EF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A094016159559C400EDFBBB /* background-pattern@2x~ipad.png */,
+				5A094017159559C400EDFBBB /* background-pattern~ipad.png */,
+				5A094018159559C500EDFBBB /* background-shadow@2x~ipad.png */,
+				5A094019159559C600EDFBBB /* background-shadow~ipad.png */,
+				5A0940141595555200EDFBBB /* Default-Portrait@2x~ipad.png */,
+				5A0940101595551100EDFBBB /* Default-Landscape@2x~ipad.png */,
 				F1C9D0881480C89B006AA758 /* Default@2x.png */,
 				F1C9D0861480C896006AA758 /* Default.png */,
 				F1C9D0841480C88C006AA758 /* icon.png */,
@@ -253,6 +278,7 @@
 		F1E25BB513A86B43007979C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A094001159541B300EDFBBB /* QuartzCore.framework */,
 				F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */,
 				F1E25BB613A86B43007979C4 /* UIKit.framework */,
 				F1E25BB813A86B43007979C4 /* Foundation.framework */,
@@ -371,10 +397,16 @@
 				F1C9D08114809DDD006AA758 /* image-notification-success@2x.png in Resources */,
 				F1C9D0831480C888006AA758 /* icon@2x.png in Resources */,
 				F1C9D0851480C88C006AA758 /* icon.png in Resources */,
-				F1C9D0871480C896006AA758 /* Default.png in Resources */,
-				F1C9D0891480C89B006AA758 /* Default@2x.png in Resources */,
 				F118365C1483C3CB00D6ED81 /* logo-codegears.png in Resources */,
 				F118365D1483C3CB00D6ED81 /* logo-codegears@2x.png in Resources */,
+				5A093FF9159530B000EDFBBB /* MainWindow-iPad.xib in Resources */,
+				5A093FFC1595313800EDFBBB /* AutoLoginView-iPad.xib in Resources */,
+				5A0940111595551100EDFBBB /* Default-Landscape@2x~ipad.png in Resources */,
+				5A0940151595555200EDFBBB /* Default-Portrait@2x~ipad.png in Resources */,
+				5A09401A159559C700EDFBBB /* background-pattern@2x~ipad.png in Resources */,
+				5A09401B159559C700EDFBBB /* background-pattern~ipad.png in Resources */,
+				5A09401C159559C700EDFBBB /* background-shadow@2x~ipad.png in Resources */,
+				5A09401D159559C700EDFBBB /* background-shadow~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +429,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5A093FF7159530B000EDFBBB /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A093FF8159530B000EDFBBB /* en */,
+			);
+			name = "MainWindow-iPad.xib";
+			sourceTree = "<group>";
+		};
+		5A093FFA1595313800EDFBBB /* AutoLoginView-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A093FFB1595313800EDFBBB /* en */,
+			);
+			name = "AutoLoginView-iPad.xib";
+			sourceTree = "<group>";
+		};
 		F19BA5B913F4B7A700C2C967 /* InfoView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -478,9 +526,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AutoLogin/AutoLogin-Prefix.pch";
 				INFOPLIST_FILE = "AutoLogin/AutoLogin-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -493,9 +541,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AutoLogin/AutoLogin-Prefix.pch";
 				INFOPLIST_FILE = "AutoLogin/AutoLogin-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

@@ -11,8 +11,8 @@
 @interface InfoViewController : UIViewController
 
 - (IBAction)infoButtonDidPress:(id)sender;
-
 - (IBAction)URLButtonDidPress:(id)sender;
+- (IBAction)mailButtonDidPress:(id)sender;
 
 @end
 

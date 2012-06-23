@@ -7,6 +7,7 @@
 //
 
 #import "AutoLoginViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 #pragma mark - NSURLRequest Category
 //acepta los certificados chantas de la U
@@ -21,9 +22,16 @@
 
 #pragma mark - Static Key for Encrypt
 
+//NSString *secretKey = @"USMEmailPasswordEncrypt";
 static NSString *secretKey = @"key";
 
 #pragma mark - AutologinViewController Implementation
+
+@interface AutoLoginViewController ()
+
+@property (nonatomic,assign) BOOL isIpad; 
+
+@end
 
 @implementation AutoLoginViewController
 
@@ -42,15 +50,53 @@ static NSString *secretKey = @"key";
 @synthesize notificationImage;
 @synthesize rememberView;
 @synthesize rememberLabel;
+@synthesize isIpad;
 
 
 /*******************************************************************************
  MÉTODOS DE INICIO
  ******************************************************************************/
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self)
+    {
+        if ([[[UIDevice currentDevice] model] hasPrefix:@"iPad"])
+        {
+            isIpad = YES;
+        }
+    }
+    
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self)
+    {
+        if ([[[UIDevice currentDevice] model] hasPrefix:@"iPad"])
+        {
+            isIpad = YES;
+        }
+    }
+    
+    return self;
+}
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (self.isIpad)
+    {
+        NSLog(@"Es un iPad!");
+        
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-pattern.png"]];
+    }
     
     webHidden = [[UIWebView alloc] init];
     webHidden.delegate = self;
@@ -236,6 +282,19 @@ static NSString *secretKey = @"key";
     }
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    if (self.isIpad)
+    {
+        return YES;
+    }
+    else if (toInterfaceOrientation == UIInterfaceOrientationPortrait)
+    {
+        return YES;
+    }
+    
+    return NO;
+}
 
 #pragma mark - 
 #pragma mark IBActions
@@ -437,7 +496,7 @@ static NSString *secretKey = @"key";
 
     if([url isEqualToString:@"https://1.1.1.1/logout.html"])
     {
-        [self showNotificationMessage:@"Te has desconectado correctamente" isSuccess:YES];
+        [self showNotificationMessage:@"Ahora estás desconectado." isSuccess:YES];
         logoutButton.userInteractionEnabled = NO;
         loginButton.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
@@ -519,6 +578,9 @@ static NSString *secretKey = @"key";
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    if (self.isIpad)
+        return YES;
+    
     CGRect frame = containerView.frame;
     
     if (frame.origin.y == 0) {
