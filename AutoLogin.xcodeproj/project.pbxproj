@@ -16,6 +16,8 @@
 		5A09401B159559C700EDFBBB /* background-pattern~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094017159559C400EDFBBB /* background-pattern~ipad.png */; };
 		5A09401C159559C700EDFBBB /* background-shadow@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094018159559C500EDFBBB /* background-shadow@2x~ipad.png */; };
 		5A09401D159559C700EDFBBB /* background-shadow~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094019159559C600EDFBBB /* background-shadow~ipad.png */; };
+		5A0940241595757600EDFBBB /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0940221595757400EDFBBB /* Icon-72.png */; };
+		5A0940251595757600EDFBBB /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0940231595757500EDFBBB /* Icon-72@2x.png */; };
 		F118365C1483C3CB00D6ED81 /* logo-codegears.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365A1483C3CB00D6ED81 /* logo-codegears.png */; };
 		F118365D1483C3CB00D6ED81 /* logo-codegears@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */; };
 		F14A205B13D51E13008EE7A4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */; };
@@ -77,6 +79,8 @@
 		5A094017159559C400EDFBBB /* background-pattern~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-pattern~ipad.png"; path = "Resources/background-pattern~ipad.png"; sourceTree = "<group>"; };
 		5A094018159559C500EDFBBB /* background-shadow@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-shadow@2x~ipad.png"; path = "Resources/background-shadow@2x~ipad.png"; sourceTree = "<group>"; };
 		5A094019159559C600EDFBBB /* background-shadow~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-shadow~ipad.png"; path = "Resources/background-shadow~ipad.png"; sourceTree = "<group>"; };
+		5A0940221595757400EDFBBB /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
+		5A0940231595757500EDFBBB /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
 		F118365A1483C3CB00D6ED81 /* logo-codegears.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears.png"; path = "Resources/logo-codegears.png"; sourceTree = "<group>"; };
 		F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears@2x.png"; path = "Resources/logo-codegears@2x.png"; sourceTree = "<group>"; };
 		F14A205A13D51E13008EE7A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -186,6 +190,8 @@
 		F182A4D21467859E00CEA3EF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5A0940221595757400EDFBBB /* Icon-72.png */,
+				5A0940231595757500EDFBBB /* Icon-72@2x.png */,
 				5A094016159559C400EDFBBB /* background-pattern@2x~ipad.png */,
 				5A094017159559C400EDFBBB /* background-pattern~ipad.png */,
 				5A094018159559C500EDFBBB /* background-shadow@2x~ipad.png */,
@@ -407,6 +413,8 @@
 				5A09401B159559C700EDFBBB /* background-pattern~ipad.png in Resources */,
 				5A09401C159559C700EDFBBB /* background-shadow@2x~ipad.png in Resources */,
 				5A09401D159559C700EDFBBB /* background-shadow~ipad.png in Resources */,
+				5A0940241595757600EDFBBB /* Icon-72.png in Resources */,
+				5A0940251595757600EDFBBB /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
