@@ -22,7 +22,6 @@
 
 #pragma mark - Static Key for Encrypt
 
-//NSString *secretKey = @"USMEmailPasswordEncrypt";
 static NSString *secretKey = @"key";
 
 #pragma mark - AutologinViewController Implementation
