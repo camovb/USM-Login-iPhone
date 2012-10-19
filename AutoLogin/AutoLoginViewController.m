@@ -416,7 +416,7 @@ static NSString *secretKey = @"key";
         _popoverInfo = [[UIPopoverController alloc] initWithContentViewController:infoViewController];
         _popoverInfo.popoverContentSize = CGSizeMake(320, 32);
         [_popoverInfo presentPopoverFromRect:senderButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-        [_popoverInfo setPopoverContentSize:CGSizeMake(320, 400) animated:YES];
+        [_popoverInfo setPopoverContentSize:CGSizeMake(320, 460) animated:YES];
     }
 }
 
