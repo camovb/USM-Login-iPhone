@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  AutoLogin
+
+  Created by Can on 19-10-12.
+  Copyright (c) 2012 Universidad Tecnica Federico Santa Mari­a. All rights reserved.
+ 
+  Spanish
+*/
+
+// Interface elements
+ui-placeholder-user = "Usuario";
+ui-placeholder-pass = "Contraseña";
+ui-remember-off     = "Recuérdame";
+ui-remember-on      = "Olvídame";
+ui-login-login      = "Conectar";
+ui-login-logout     = "Desconectar";
+
+// Messages
+msg-error-ssid      = "Debes estar conectado a una red USM.";
+msg-error-mail      = "Debes escribir tu correo institucional.";
+msg-error-pass      = "Debes escribir tu contraseña del correo.";
+msg-error-double    = "Tu usuario está utilizando por otro dispositivo.";
+msg-error-session   = "Nombre de usuario o contraseña incorrectos.";
+msg-error-timeout   = "Paso el tiempo máximo de espera.";
+msg-success-login   = "Te has conectado correctamente.";
+msg-success-logout  = "Ahora estás desconectado.";
+
+// Contact Info
+info-body           = "El código de la aplicación se encuentra disponible en github:";
+info-createdby      = "Creado por:";
+info-mail-subject   = "Sobre la app USMWifi";
+info-mail-body      = "Camo, Can:\n\nLuego de ver la App USMWifi, pensaba que";

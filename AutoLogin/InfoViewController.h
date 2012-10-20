@@ -13,6 +13,8 @@
 @property (nonatomic,retain) IBOutlet UIButton *buttonURL;
 @property (nonatomic,retain) IBOutlet UIButton *buttonEmailCan;
 @property (nonatomic,retain) IBOutlet UIButton *buttonEmailCamo;
+@property (nonatomic,retain) IBOutlet UILabel *labelBody;
+@property (nonatomic,retain) IBOutlet UILabel *labelCreatedBy;
 
 - (IBAction)infoButtonDidPress:(id)sender;
 - (IBAction)URLButtonDidPress:(id)sender;

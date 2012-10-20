@@ -11,19 +11,23 @@
 
 const NSString* urlGithub  = @"https://github.com/camitox/USM-Login-iPhone";
 
-const NSString* mailFormat  = @"mailto:jose.canepa@alumnos.usm.cl,camilo.verab@alumnos.usm.cl?subject=%@&body=%@";
-const NSString* mailBody    = @"Camo, Can:\n\nLuego de ver la App USMWifi, pensaba que";
-const NSString* mailSubject = @"Sobre la app USMWifi";
-
 @implementation InfoViewController
 
-@synthesize buttonURL, buttonEmailCan, buttonEmailCamo;
+@synthesize buttonEmailCamo,
+            buttonEmailCan,
+            buttonURL,
+            labelCreatedBy,
+            labelBody;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     NSArray *buttons = [NSArray arrayWithObjects:buttonURL, buttonEmailCan, buttonEmailCamo, nil];
+    
+    // Localize strings
+    self.labelBody.text = LS(@"info-body", @"El código de la aplicación se encuentra disponible en github:");
+    self.labelCreatedBy.text = LS(@"info-createdby", @"Creado por:");
     
     for (UIButton *button in buttons)
     {
@@ -46,6 +50,10 @@ const NSString* mailSubject = @"Sobre la app USMWifi";
 
 - (void)mailButtonDidPress:(id)sender
 {
+    const NSString* mailFormat  = @"mailto:jose.canepa@alumnos.usm.cl,camilo.verab@alumnos.usm.cl?subject=%@&body=%@";
+    const NSString* mailBody    = LS(@"info-mail-body", @"Camo, Can:\n\nLuego de ver la App USMWifi, pensaba que");
+    const NSString* mailSubject = LS(@"info-mail-subject", @"Sobre la app USMWifi");
+    
     NSString *urlString = [NSString stringWithFormat:(NSString*)mailFormat,[mailSubject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],[mailBody stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSURL *url = [NSURL URLWithString:urlString];
     

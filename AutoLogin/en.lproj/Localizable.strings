@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  AutoLogin
+
+  Created by Can on 19-10-12.
+  Copyright (c) 2012 Universidad Tecnica Federico Santa Mari­a. All rights reserved.
+ 
+  English
+*/
+
+// Interface elements
+ui-placeholder-user = "Username";
+ui-placeholder-pass = "Password";
+ui-remember-off     = "Remember me";
+ui-remember-on      = "Forget me";
+ui-login-login      = "Login";
+ui-login-logout     = "Logout";
+
+// Messages
+msg-error-ssid      = "You should be within the USM Campus WiFi.";
+msg-error-mail      = "Username is your institutional mail address.";
+msg-error-pass      = "The password is your institutional mail password.";
+msg-error-double    = "Your username is being used by another device.";
+msg-error-session   = "Username and/or password are invalid.";
+msg-error-timeout   = "Waited for too long, timed out.";
+msg-success-login   = "You are now connected.";
+msg-success-logout  = "You are now disconnected.";
+
+// Contact Info
+info-body           = "If you don't trust us, the application code is available on github:";
+info-createdby      = "Created by:";
+info-mail-subject   = "About USMWifi";
+info-mail-body      = "Camo, Can:\n\nAfter using the application 'USMWifi', I was thinking that maybe ";

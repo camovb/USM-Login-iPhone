@@ -93,8 +93,6 @@ static NSString *secretKey    = @"key";
     
     if (self.isIpad)
     {
-        DLog(@"Es un iPad!");
-        
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-pattern.png"]];
     }
     
@@ -105,6 +103,17 @@ static NSString *secretKey    = @"key";
                                              selector:@selector(applicationDidBecomeActive:) 
                                                  name:UIApplicationDidBecomeActiveNotification 
                                                object:nil];
+    
+    // Placeholders localizados
+    textFieldUser.placeholder = LS(@"ui-placeholder-user", @"Usuario");
+    textFieldPass.placeholder = LS(@"ui-placeholder-pass", @"Contraseña");
+    
+    // Botones localizados
+    [loginButton setTitle:LS(@"ui-login-login", "") forState:UIControlStateNormal];
+    [logoutButton setTitle:LS(@"ui-login-logout", "") forState:UIControlStateNormal];
+    
+    // Recuerdame localizado
+    rememberOptionLabel.text = LS(@"ui-remember-off", @"");
     
     //color más oscuro a los placeholders
     [textFieldUser setValue:[UIColor darkGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -220,7 +229,7 @@ static NSString *secretKey    = @"key";
     if ([ssid hasPrefix:@"usm_"])
         return YES;
     
-    [self showNotificationMessage:@"Debes estar conectado a una red USM" isSuccess:NO];
+    [self showNotificationMessage:LS(@"msg-error-ssid", @"Debes estar conectado a una red USM") isSuccess:NO];
     
     return NO;
 }
@@ -337,12 +346,12 @@ static NSString *secretKey    = @"key";
     //valida los campos...
     if (!textFieldUser.text || [textFieldUser.text isEqualToString:@""]) 
     {
-        [self showNotificationMessage:@"Debes escribir tu correo institucional" isSuccess:NO];
+        [self showNotificationMessage:LS(@"msg-error-mail", @"Debes escribir tu correo institucional") isSuccess:NO];
         return;
     }
     else if(!textFieldPass.text || [textFieldPass.text isEqualToString:@""])
     {
-        [self showNotificationMessage:@"Debes escribir tu contraseña" isSuccess:NO];
+        [self showNotificationMessage:LS(@"msg-error-pass", @"Debes escribir tu contraseña") isSuccess:NO];
         return;
     }
     
@@ -437,7 +446,7 @@ static NSString *secretKey    = @"key";
         [UD setObject:extension forKey:@"extension"];
         [self hideKeyboard:nil];
         
-        rememberOptionLabel.text = @"Olvídame";
+        rememberOptionLabel.text = LS(@"ui-remember-on", @"Olvídame");
         rememberLabel.text = [user stringByAppendingString:extension];
         rememberView.userInteractionEnabled = YES;
         
@@ -447,7 +456,7 @@ static NSString *secretKey    = @"key";
     }
     else
     {
-        rememberOptionLabel.text = @"Recuerdame";
+        rememberOptionLabel.text = LS(@"ui-remember-off", @"Recuérdame");
         
         rememberView.userInteractionEnabled = NO;
         [UIView animateWithDuration:0.5 animations:^{
@@ -526,7 +535,7 @@ static NSString *secretKey    = @"key";
 
     if([url isEqualToString:@"https://1.1.1.1/logout.html"])
     {
-        [self showNotificationMessage:@"Ahora estás desconectado." isSuccess:YES];
+        [self showNotificationMessage:LS(@"msg-success-logout", @"Ahora estás desconectado.") isSuccess:YES];
         logoutButton.userInteractionEnabled = NO;
         loginButton.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
@@ -552,7 +561,7 @@ static NSString *secretKey    = @"key";
     //si intenta cargar usm, entonces perfect
     if ([url isEqualToString:@"http://www.usm.cl/"] || status==1)
     {
-        [self showNotificationMessage:@"Te has conectado correctamente" isSuccess:YES];
+        [self showNotificationMessage:LS(@"msg-success-login", @"Te has conectado correctamente") isSuccess:YES];
         
         loginButton.userInteractionEnabled = NO;
         logoutButton.userInteractionEnabled=YES;
@@ -568,7 +577,7 @@ static NSString *secretKey    = @"key";
     }
     else if (status==2 || status==3)
     {
-        [self showNotificationMessage:@"Tu usuario está utilizando por otro dispositivo" isSuccess:NO];
+        [self showNotificationMessage:LS(@"msg-error-double", @"Tu usuario está utilizando por otro dispositivo") isSuccess:NO];
         [activityIndicator setHidden:YES];
         timeOut = YES;
         
@@ -576,7 +585,7 @@ static NSString *secretKey    = @"key";
     }
     else if (status==4 || status==5)
     {
-        [self showNotificationMessage:@"Nombre de usuario o contraseña incorrectos" isSuccess:NO];
+        [self showNotificationMessage:LS(@"msg-error-session", @"Nombre de usuario o contraseña incorrectos") isSuccess:NO];
         [activityIndicator setHidden:YES];
         timeOut = YES;
         
@@ -598,7 +607,7 @@ static NSString *secretKey    = @"key";
     if ([webHidden isLoading] && !timeOut) 
     {
         [webHidden stopLoading];
-        [self showNotificationMessage:@"Paso el tiempo máximo de espera" isSuccess:NO];
+        [self showNotificationMessage:LS(@"msg-error-timeout", @"Paso el tiempo máximo de espera") isSuccess:NO];
         timeOut = YES;
     }
 }

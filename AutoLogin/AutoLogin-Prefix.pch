@@ -18,3 +18,5 @@
 #else
 #define DLog(...)
 #endif
+
+#define LS(key, comment) NSLocalizedString(key, comment)

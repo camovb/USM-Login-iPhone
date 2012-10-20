@@ -20,6 +20,7 @@
 		5A0940251595757600EDFBBB /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A0940231595757500EDFBBB /* Icon-72@2x.png */; };
 		5A094028159578EE00EDFBBB /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094026159578EB00EDFBBB /* Default-Landscape~ipad.png */; };
 		5A094029159578EE00EDFBBB /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A094027159578ED00EDFBBB /* Default-Portrait~ipad.png */; };
+		5AC1DA341632460F0093DE4F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AC1DA321632460F0093DE4F /* Localizable.strings */; };
 		5AD1C7B91630FBA800904E17 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F1C9D0881480C89B006AA758 /* Default@2x.png */; };
 		5AD1C7BB1630FBB300904E17 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AD1C7BA1630FBB300904E17 /* Default-568h@2x.png */; };
 		F118365C1483C3CB00D6ED81 /* logo-codegears.png in Resources */ = {isa = PBXBuildFile; fileRef = F118365A1483C3CB00D6ED81 /* logo-codegears.png */; };
@@ -87,6 +88,8 @@
 		5A0940231595757500EDFBBB /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = SOURCE_ROOT; };
 		5A094026159578EB00EDFBBB /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = SOURCE_ROOT; };
 		5A094027159578ED00EDFBBB /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = SOURCE_ROOT; };
+		5AB4E0CE163246DA009EB936 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5AC1DA331632460F0093DE4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5AD1C7BA1630FBB300904E17 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		F118365A1483C3CB00D6ED81 /* logo-codegears.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears.png"; path = "Resources/logo-codegears.png"; sourceTree = "<group>"; };
 		F118365B1483C3CB00D6ED81 /* logo-codegears@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "logo-codegears@2x.png"; path = "Resources/logo-codegears@2x.png"; sourceTree = "<group>"; };
@@ -165,6 +168,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5AC1DA30163245EE0093DE4F /* Locales */ = {
+			isa = PBXGroup;
+			children = (
+				5AC1DA321632460F0093DE4F /* Localizable.strings */,
+			);
+			name = Locales;
+			sourceTree = "<group>";
+		};
 		F182A4C81467854C00CEA3EF /* External */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +317,7 @@
 		F1E25BBC13A86B43007979C4 /* AutoLogin */ = {
 			isa = PBXGroup;
 			children = (
+				5AC1DA30163245EE0093DE4F /* Locales */,
 				F182A4D3146785B000CEA3EF /* ViewControllers */,
 				F182A4D21467859E00CEA3EF /* Resources */,
 				F182A4D11467857B00CEA3EF /* Base */,
@@ -360,6 +372,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 			);
 			mainGroup = F1E25BA713A86B43007979C4;
 			productRefGroup = F1E25BB313A86B43007979C4 /* Products */;
@@ -429,6 +442,7 @@
 				5A094029159578EE00EDFBBB /* Default-Portrait~ipad.png in Resources */,
 				5AD1C7B91630FBA800904E17 /* Default@2x.png in Resources */,
 				5AD1C7BB1630FBB300904E17 /* Default-568h@2x.png in Resources */,
+				5AC1DA341632460F0093DE4F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +479,15 @@
 				5A093FFB1595313800EDFBBB /* en */,
 			);
 			name = "AutoLoginView-iPad.xib";
+			sourceTree = "<group>";
+		};
+		5AC1DA321632460F0093DE4F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AC1DA331632460F0093DE4F /* en */,
+				5AB4E0CE163246DA009EB936 /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		F19BA5B913F4B7A700C2C967 /* InfoView.xib */ = {
