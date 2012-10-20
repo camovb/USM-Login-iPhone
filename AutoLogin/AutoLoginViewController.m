@@ -22,35 +22,35 @@
 
 #pragma mark - Static Key for Encrypt
 
-static NSString *secretKey = @"key";
+static NSString *secretKey    = @"key";
 
 #pragma mark - AutologinViewController Implementation
 
 @interface AutoLoginViewController ()
 
-@property (nonatomic,assign) BOOL isIpad; 
+@property (nonatomic,assign) BOOL isIpad;
 
 @end
 
 @implementation AutoLoginViewController
 
-@synthesize popoverInfo=_popoverInfo;
-@synthesize textFieldUser;
-@synthesize textFieldPass;
-@synthesize rememberOption;
-@synthesize rememberOptionLabel;
-@synthesize activityIndicator;
-@synthesize containerView;
-@synthesize logo;
-@synthesize extensionButton;
-@synthesize loginButton;
-@synthesize logoutButton;
-@synthesize notificationView;
-@synthesize notificationLabel;
-@synthesize notificationImage;
-@synthesize rememberView;
-@synthesize rememberLabel;
-@synthesize isIpad;
+@synthesize popoverInfo         = _popoverInfo,
+            textFieldUser,
+            textFieldPass,
+            rememberOption,
+            rememberOptionLabel,
+            activityIndicator,
+            containerView,
+            logo,
+            extensionButton,
+            loginButton,
+            logoutButton,
+            notificationView,
+            notificationLabel,
+            notificationImage,
+            rememberView,
+            rememberLabel,
+            isIpad;
 
 
 /*******************************************************************************
@@ -93,7 +93,7 @@ static NSString *secretKey = @"key";
     
     if (self.isIpad)
     {
-        NSLog(@"Es un iPad!");
+        DLog(@"Es un iPad!");
         
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-pattern.png"]];
     }
@@ -217,7 +217,7 @@ static NSString *secretKey = @"key";
     
     NSString *ssid = [wifi objectForKey:@"SSID"];
     
-    if ([ssid hasPrefix:@"usm_"]) 
+    if ([ssid hasPrefix:@"usm_"])
         return YES;
     
     [self showNotificationMessage:@"Debes estar conectado a una red USM" isSuccess:NO];
@@ -471,7 +471,7 @@ static NSString *secretKey = @"key";
 
 - (void)showNotificationMessage:(NSString*)message isSuccess:(BOOL)success;
 {
-    NSLog(@"Notification: %@",message);
+    DLog(@"Notification: %@",message);
     
     notificationLabel.text = message;
     
@@ -542,7 +542,7 @@ static NSString *secretKey = @"key";
 {
         
     NSString *url = [[request URL] absoluteString];
-    NSLog(@"url: %@",url);
+    DLog(@"url: %@",url);
     //busca el status code
     NSRange r = [url rangeOfString:@"statusCode="];
     NSInteger status = 0;
