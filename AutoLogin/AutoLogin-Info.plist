@@ -41,19 +41,19 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>BRBT99F7RH.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>4R52ZCQDKB.com.codegears.usmautologin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>com.codegears.usmautologin</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.3.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.2</string>
+	<string>1.3.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
