@@ -408,7 +408,7 @@ static NSString *secretKey    = @"key";
     
     if (!isIpad)
     {
-        [infoViewController setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+        [infoViewController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [self presentModalViewController:infoViewController animated:YES];
         [infoViewController release];
     }

@@ -13,7 +13,8 @@ const NSString* urlGithub  = @"https://github.com/camitox/USM-Login-iPhone";
 
 @implementation InfoViewController
 
-@synthesize buttonEmailCamo,
+@synthesize buttonDismiss,
+            buttonEmailCamo,
             buttonEmailCan,
             buttonURL,
             labelCreatedBy,
@@ -25,14 +26,24 @@ const NSString* urlGithub  = @"https://github.com/camitox/USM-Login-iPhone";
     
     NSArray *buttons = [NSArray arrayWithObjects:buttonURL, buttonEmailCan, buttonEmailCamo, nil];
     
+    self.view.clipsToBounds = YES;
+    self.view.layer.cornerRadius = 10.0;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-paper"]];
+    
     // Localize strings
     self.labelBody.text = LS(@"info-body", @"El código de la aplicación se encuentra disponible en github:");
     self.labelCreatedBy.text = LS(@"info-createdby", @"Creado por:");
     
+    // Hide the button if its ipad
+    if ([[[UIDevice currentDevice] model] hasPrefix:@"iPad"])
+    {
+        self.buttonDismiss.hidden = YES;
+    }
+    
     for (UIButton *button in buttons)
     {
-        button.backgroundColor = [UIColor colorWithWhite:0.75 alpha:1.0];
-        button.layer.cornerRadius = 16.0;
+        button.backgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
+        button.layer.cornerRadius = button.frame.size.height/2;
         button.clipsToBounds = YES;
         button.titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:1.0];
     }
