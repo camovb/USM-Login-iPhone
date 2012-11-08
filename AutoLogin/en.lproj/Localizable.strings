@@ -27,7 +27,7 @@ msg-success-login   = "You are now connected.";
 msg-success-logout  = "You are now disconnected.";
 
 // Contact Info
-info-body           = "If you don't trust us, the application code is available on github:";
+info-body           = "The application code is available on github:";
 info-createdby      = "Created by:";
 info-mail-subject   = "About USMWifi";
 info-mail-body      = "Camo, Can:\n\nAfter using the application 'USMWifi', I was thinking that maybe ";

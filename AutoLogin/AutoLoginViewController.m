@@ -366,9 +366,9 @@ static NSString *secretKey    = @"key";
     
     if ([title isEqualToString:@"@alumnos.usm.cl"]) 
     {
-        [button setTitle:@"@sansanos.usm.cl" forState:UIControlStateNormal];
+        [button setTitle:@"@sansano.usm.cl" forState:UIControlStateNormal];
     }
-    else if([title isEqualToString:@"@sansanos.usm.cl"])
+    else if([title isEqualToString:@"@sansano.usm.cl"])
     {
         [button setTitle:@"@usm.cl" forState:UIControlStateNormal];
     }
